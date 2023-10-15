@@ -1,26 +1,41 @@
 "use client"
+import { useState, useEffect } from "react";
 import useFirebaseAuth from "@/app/hooks/useFirebaseAuth"
 import { useRouter } from 'next/navigation';
+import { isObjectNotEmpty } from "../utils/helpers";
 
 const Dashboard = () => {
-    const { logout, user } = useFirebaseAuth()
+    const [ initialLoad, setInitialLoad ] = useState(true)
+    const { authenticate, user } = useFirebaseAuth()
     const router = useRouter()
 
     const handleLogout = () => {
-        logout()
+        authenticate.logout()
             .then(() => {
                 router.push("/login")
             })
             .catch(err => console.error(err))
     }
 
+    useEffect(() => {
+        setTimeout(() => {setInitialLoad(false)}, 2000)
+        if (!user) router.push("/")
+    },[user])
+
     return (
+        <>
+        {!initialLoad ? 
+        (
         <div>
             <h1>INDUCTION MOTOR MONITORING SYSTEM</h1>
             <h4> User Logged In: </h4>
             {user?.email}
             <button onClick={() => handleLogout()}> Sign Out </button>
         </div>
+        )
+        : <p>Loading...</p>
+        }
+        </>
     )
 }
 

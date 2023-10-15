@@ -15,53 +15,78 @@ const useFirebaseAuth = () => {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const [user, setUser] = useState<any>({});
+    const [error, setError] = useState("")
+
+    const disableRegister =  registerEmail === "" || registerPassword === ""|| registerPassword.length < 8
+    const disableLogin =  loginEmail === "" || loginPassword === ""|| loginPassword.length < 8
 
     useEffect(() => {
+        setError("")
         onAuthStateChanged(auth, (currentUser: any) => {
           setUser(currentUser);
         });
     },[])
 
-    const register = async () => {
+    const register = async () => {   
+        setError("")
         try {
-          const user = await createUserWithEmailAndPassword(
+          await createUserWithEmailAndPassword(
             auth,
             registerEmail,
             registerPassword
           );
-          console.log(user);
         } catch (error: any) {
-          console.error(error.message);
+          console.error(error.message)
+          setError(error.message)
+          throw new Error(error.message)
         }
       };
     
       const login = async () => {
+        setError("")
         try {
-          const user = await signInWithEmailAndPassword(
+          await signInWithEmailAndPassword(
             auth,
             loginEmail,
             loginPassword
           );
-          console.log(user);
         } catch (error: any) {
-          console.error(error.message);
+          console.error(error.message)
+          setError(error.message)
+          throw new Error(error.message)
         }
       };
     
       const logout = async () => {
+        setError("")
         await signOut(auth);
       };
 
-      return {
-        register, 
-        login, 
-        logout, 
+      const authenticate = {
+        register,
+        login,
+        logout,
+        registerEmail,
+        registerPassword,
         setRegisterEmail, 
         setRegisterPassword, 
+        loginEmail,
+        loginPassword,
         setLoginEmail, 
-        setLoginPassword, 
-        user
-    }
+        setLoginPassword,
+      }
+
+      const disable = {
+        register: disableRegister,
+        login: disableLogin,
+      }
+
+      return {
+        authenticate, 
+        disable,
+        user,
+        error
+      }
 }
 
 export default useFirebaseAuth
