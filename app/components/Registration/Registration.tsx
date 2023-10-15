@@ -11,7 +11,7 @@ function Registration() {
     register()
             .then(() => {
               alert("User Successfully Created!")
-              router.push("/")
+              router.push("/dashboard")
             })
             .catch(err => console.error(err))
   }

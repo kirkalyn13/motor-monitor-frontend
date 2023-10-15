@@ -29,7 +29,6 @@ const useFirebaseAuth = () => {
             registerEmail,
             registerPassword
           );
-          console.log(user);
         } catch (error: any) {
           console.error(error.message);
         }
@@ -42,7 +41,6 @@ const useFirebaseAuth = () => {
             loginEmail,
             loginPassword
           );
-          console.log(user);
         } catch (error: any) {
           console.error(error.message);
         }

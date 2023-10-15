@@ -10,7 +10,7 @@ const Login = () => {
     const handleLogin = () => {
         login()
             .then(() => {
-                router.push("/")
+                router.push("/dashboard")
             })
             .catch(err => console.error(err))
     }
