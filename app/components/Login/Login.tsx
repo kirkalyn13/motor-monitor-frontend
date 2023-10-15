@@ -2,9 +2,10 @@
 import useFirebaseAuth from '@/app/hooks/useFirebaseAuth'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { parseError } from '@/app/utils/helpers'
 
 const Login = () => {
-    const { authenticate, disable } = useFirebaseAuth()
+    const { authenticate, disable, error } = useFirebaseAuth()
     const router = useRouter()
 
     const handleLogin = () => {
@@ -38,6 +39,7 @@ const Login = () => {
                     authenticate.setLoginPassword(event.target.value);
                 }}
                 />
+                {error !== "" && <p className="font-semibold py-2 text-red-500 my-">{parseError(error)}</p>}
                 <button 
                     disabled={disable.login}
                     className={`md:w-1/4 w-full mx-2 my-4 p-2 text-white rounded-lg 
