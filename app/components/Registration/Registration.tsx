@@ -1,8 +1,19 @@
 "use client"
 import useFirebaseAuth from "@/app/hooks/useFirebaseAuth";
+import { useRouter } from 'next/navigation'
 
 function Registration() {
   const { register, setRegisterEmail, setRegisterPassword } = useFirebaseAuth()
+  const router = useRouter()
+
+  const handleRegister = () => {
+    register()
+            .then(() => {
+              alert("User Successfully Created!")
+              router.push("/")
+            })
+            .catch(err => console.error(err))
+  }
 
   return (
       <div>
@@ -20,7 +31,7 @@ function Registration() {
           }}
         />
 
-        <button onClick={register}> Create User</button>
+        <button onClick={() => handleRegister()}> Create User</button>
       </div>
   );
 }
