@@ -1,6 +1,6 @@
 "use client"
-import useFirebaseAuth from '@/app/hooks/useFirebaseAuth';
-import { useRouter } from 'next/navigation';
+import useFirebaseAuth from '@/app/hooks/useFirebaseAuth'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 const Login = () => {
