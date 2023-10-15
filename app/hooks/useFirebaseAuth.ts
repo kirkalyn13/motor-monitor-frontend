@@ -16,6 +16,9 @@ const useFirebaseAuth = () => {
     const [loginPassword, setLoginPassword] = useState("");
     const [user, setUser] = useState<any>({});
 
+    const disableRegister =  registerEmail === "" || registerPassword === ""|| registerPassword.length < 8
+    const disableLogin =  loginEmail === "" || loginPassword === ""|| loginPassword.length < 8
+
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: any) => {
           setUser(currentUser);
@@ -50,16 +53,30 @@ const useFirebaseAuth = () => {
         await signOut(auth);
       };
 
-      return {
-        register, 
-        login, 
-        logout, 
+      const authenticate = {
+        register,
+        login,
+        logout,
+        registerEmail,
+        registerPassword,
         setRegisterEmail, 
         setRegisterPassword, 
+        loginEmail,
+        loginPassword,
         setLoginEmail, 
-        setLoginPassword, 
+        setLoginPassword,
+      }
+
+      const disable = {
+        register: disableRegister,
+        login: disableLogin,
+      }
+
+      return {
+        authenticate, 
+        disable,
         user
-    }
+      }
 }
 
 export default useFirebaseAuth

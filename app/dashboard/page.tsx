@@ -6,11 +6,11 @@ import { isObjectNotEmpty } from "../utils/helpers";
 
 const Dashboard = () => {
     const [ initialLoad, setInitialLoad ] = useState(true)
-    const { logout, user } = useFirebaseAuth()
+    const { authenticate, user } = useFirebaseAuth()
     const router = useRouter()
 
     const handleLogout = () => {
-        logout()
+        authenticate.logout()
             .then(() => {
                 router.push("/login")
             })
@@ -19,7 +19,6 @@ const Dashboard = () => {
 
     useEffect(() => {
         setTimeout(() => {setInitialLoad(false)}, 2000)
-        console.log(user)
         if (!user) router.push("/")
     },[user])
 

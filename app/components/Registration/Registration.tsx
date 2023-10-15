@@ -4,11 +4,11 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 function Registration() {
-  const { register, setRegisterEmail, setRegisterPassword } = useFirebaseAuth()
+  const { authenticate, disable } = useFirebaseAuth()
   const router = useRouter()
 
   const handleRegister = () => {
-    register()
+    authenticate.register()
             .then(() => {
               alert("User Successfully Created!")
               router.push("/dashboard")
@@ -26,7 +26,7 @@ function Registration() {
           type="text"
           placeholder="Email..."
           onChange={(event) => {
-            setRegisterEmail(event.target.value);
+            authenticate.setRegisterEmail(event.target.value);
           }}
         />
         <input
@@ -36,13 +36,14 @@ function Registration() {
           type="password"
           placeholder="Password..."
           onChange={(event) => {
-            setRegisterPassword(event.target.value);
+            authenticate.setRegisterPassword(event.target.value);
           }}
         />
         <button 
-          className="md:w-1/4 w-full mx-2 my-4 p-2 
-          text-white bg-blue-500 rounded-lg hover:bg-blue-600 
-          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          disabled={disable.register}
+          className={`md:w-1/4 w-full mx-2 my-4 p-2 text-white rounded-lg 
+          ${!disable.register ? " bg-blue-500 hover:bg-blue-600 " : " bg-gray-300 "}
+          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
           onClick={() => handleRegister()}>
             Create User
         </button>

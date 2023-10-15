@@ -4,11 +4,11 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 const Login = () => {
-    const { setLoginEmail, setLoginPassword, login } = useFirebaseAuth()
+    const { authenticate, disable } = useFirebaseAuth()
     const router = useRouter()
 
     const handleLogin = () => {
-        login()
+        authenticate.login()
             .then(() => {
                 router.push("/dashboard")
             })
@@ -25,7 +25,7 @@ const Login = () => {
                 type="text"
                 placeholder="Email..."
                 onChange={(event) => {
-                    setLoginEmail(event.target.value);
+                    authenticate.setLoginEmail(event.target.value);
                 }}
                 />
                 <input
@@ -35,13 +35,14 @@ const Login = () => {
                 type="password"
                 placeholder="Password..."
                 onChange={(event) => {
-                    setLoginPassword(event.target.value);
+                    authenticate.setLoginPassword(event.target.value);
                 }}
                 />
                 <button 
-                    className="md:w-1/4 w-full mx-2 my-4 p-2 
-                    text-white bg-blue-500 rounded-lg hover:bg-blue-600 
-                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    disabled={disable.login}
+                    className={`md:w-1/4 w-full mx-2 my-4 p-2 text-white rounded-lg 
+                    ${!disable.login ? " bg-blue-500 hover:bg-blue-600 " : " bg-gray-300 "}
+                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
                     onClick={() => handleLogin()}>
                         Login
                 </button>
