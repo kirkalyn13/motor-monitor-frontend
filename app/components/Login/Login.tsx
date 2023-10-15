@@ -1,6 +1,7 @@
 "use client"
 import useFirebaseAuth from '@/app/hooks/useFirebaseAuth';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link'
 
 const Login = () => {
     const { setLoginEmail, setLoginPassword, login } = useFirebaseAuth()
@@ -17,20 +18,27 @@ const Login = () => {
     return (
         <div>
             <h3> Login </h3>
-            <input
-            placeholder="Email..."
-            onChange={(event) => {
-                setLoginEmail(event.target.value);
-            }}
-            />
-            <input
-            placeholder="Password..."
-            onChange={(event) => {
-                setLoginPassword(event.target.value);
-            }}
-            />
-
-            <button onClick={() => handleLogin()}> Login</button>
+                <input
+                type="text"
+                placeholder="Email..."
+                onChange={(event) => {
+                    setLoginEmail(event.target.value);
+                }}
+                />
+                <input
+                type="password"
+                placeholder="Password..."
+                onChange={(event) => {
+                    setLoginPassword(event.target.value);
+                }}
+                />
+                <button onClick={() => handleLogin()}> Login</button>
+                <div>
+                    Don&apos;t have an account yet?
+                    <Link href="/register" scroll={false}>
+                    Register here
+                    </Link>
+                </div>
         </div>
     )
 }
