@@ -17,8 +17,8 @@ const useFirebaseAuth = () => {
     const [user, setUser] = useState<any>({});
     const [error, setError] = useState("")
 
-    const disableRegister =  registerEmail === "" || registerPassword === ""|| registerPassword.length < 8
-    const disableLogin =  loginEmail === "" || loginPassword === ""|| loginPassword.length < 8
+    const disableRegister =  registerEmail.trim() === "" || registerPassword === ""|| registerPassword.length < 8
+    const disableLogin =  loginEmail.trim() === "" || loginPassword === ""|| loginPassword.length < 8
 
     useEffect(() => {
         setError("")
@@ -32,8 +32,8 @@ const useFirebaseAuth = () => {
         try {
           await createUserWithEmailAndPassword(
             auth,
-            registerEmail,
-            registerPassword
+            registerEmail.trim(),
+            registerPassword.trim()
           );
         } catch (error: any) {
           console.error(error.message)
@@ -47,8 +47,8 @@ const useFirebaseAuth = () => {
         try {
           await signInWithEmailAndPassword(
             auth,
-            loginEmail,
-            loginPassword
+            loginEmail.trim(),
+            loginPassword.trim()
           );
         } catch (error: any) {
           console.error(error.message)
