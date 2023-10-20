@@ -1,4 +1,3 @@
-import React, { CSSProperties } from 'react'
 import RotateLoader from "react-spinners/RotateLoader"
 
 interface LoadingSpinnerProps {
