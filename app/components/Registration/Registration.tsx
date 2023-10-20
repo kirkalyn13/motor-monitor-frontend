@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import AuthError from "@/app/components/AuthError/AuthError"
 import { useState } from "react"
+import Image from "next/image"
+import { LOGO_SRC } from "@/app/utils/src"
 
 function Registration() {
   const { authenticate, disable, error, setError } = useFirebaseAuth()
@@ -41,6 +43,11 @@ function Registration() {
 
   return (
       <section className="w-screen h-screen flex flex-col justify-center items-center">
+        <Image 
+          src={LOGO_SRC}
+          width={100}
+          height={100}
+          alt="logo"/>
         <h3 className="text-2xl font-bold my-4">Registration</h3>
         <input
           className="md:w-1/4 w-4/5 m-2 p-2
