@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
+import RotateLoader from "react-spinners/RotateLoader"
 
-const LoadingSpinner = () => {
+interface LoadingSpinnerProps {
+    isLoading: boolean
+}
+const COLOR = "#3b82f6"
+
+const LoadingSpinner = ({isLoading}: LoadingSpinnerProps) => {
   return (
     <div className='w-screen h-screen flex justify-center items-center'>
-        <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin" />
+        <RotateLoader
+            color={COLOR}
+            loading={isLoading}
+            size={15}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+        />
     </div>
   )
 }
