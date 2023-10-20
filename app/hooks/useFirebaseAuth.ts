@@ -85,7 +85,8 @@ const useFirebaseAuth = () => {
         authenticate, 
         disable,
         user,
-        error
+        error,
+        setError
       }
 }
 

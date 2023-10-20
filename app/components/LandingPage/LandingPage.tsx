@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const LandingPage = () => {
   return (
-    <div>
+    <section>
         <h1>Welcome to Three-Phase Induction Motor Monitor!</h1>
         <div>
             Don&apos;t have an account yet?
@@ -17,7 +17,7 @@ const LandingPage = () => {
           Login here
           </Link>
         </div>
-    </div>
+    </section>
   )
 }
 
