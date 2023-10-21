@@ -32,13 +32,14 @@ function Registration() {
     authenticate.register()
             .then(() => {
               const newUser: User = {
+                email: authenticate.registerEmail,
                 firstName,
                 lastName,
                 company,
                 motors: [],
                 alarms:[]
               }
-              addUserData(authenticate.registerEmail, newUser)
+              addUserData(newUser)
               router.push("/dashboard")
             })
             .catch(err => console.error(err))
