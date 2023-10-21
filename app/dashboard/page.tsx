@@ -9,7 +9,7 @@ const Dashboard = () => {
     const { user } = useFirebaseAuth()
 
     useEffect(() => {
-        if (!user || !user.email) return
+        if (!user?.email) return
         getUserData(user?.email)
                 .then((res) => {
                     setUserData(res)
