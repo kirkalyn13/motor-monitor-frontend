@@ -6,7 +6,6 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-// import "./Registration.css";
 import { auth } from "@/firebase-config";
 
 const useFirebaseAuth = () => {
