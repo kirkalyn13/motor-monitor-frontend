@@ -6,6 +6,8 @@ import AuthError from "@/app/components/AuthError/AuthError"
 import { useState } from "react"
 import Image from "next/image"
 import { LOGO_SRC } from "@/app/utils/src"
+import { addUserData } from "@/app/services/userService"
+import { User } from "@/app/types/user"
 
 function Registration() {
   const { authenticate, disable, error, setError } = useFirebaseAuth()
@@ -29,7 +31,14 @@ function Registration() {
     if (!validatePassword()) return
     authenticate.register()
             .then(() => {
-              alert("User Successfully Created!")
+              const newUser: User = {
+                firstName,
+                lastName,
+                company,
+                motors: [],
+                alarms:[]
+              }
+              addUserData(authenticate.registerEmail, newUser)
               router.push("/dashboard")
             })
             .catch(err => console.error(err))
