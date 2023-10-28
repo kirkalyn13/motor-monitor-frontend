@@ -7,7 +7,7 @@ const COLOR = "#3b82f6"
 
 const LoadingSpinner = ({isLoading}: LoadingSpinnerProps) => {
   return (
-    <div className='w-screen h-screen flex justify-center items-center'>
+    <div className='w-screen h-screen flex justify-center items-center bg-slate-800'>
         <RotateLoader
             color={COLOR}
             loading={isLoading}

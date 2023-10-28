@@ -17,7 +17,7 @@ const Dashboard = () => {
     },[user])
 
     return (
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-2 bg-slate-800 text-white h-screen">
             <h1>INDUCTION MOTOR MONITORING SYSTEM</h1>
             <span>First Name: {userData?.firstName ?? "..."}</span>
             <span>Last Name: {userData?.lastName ?? "..."}</span>
