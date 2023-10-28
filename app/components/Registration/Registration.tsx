@@ -133,7 +133,7 @@ function Registration() {
         <div className="md:w-1/4 w-4/5 text-center">
           <span className="me-4 text-white">Already have an account?</span>
           <Link 
-            className="text-blue-700"
+            className="text-amber-500"
             href="/login" scroll={false}>
             Login here
           </Link>

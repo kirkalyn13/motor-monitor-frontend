@@ -3,7 +3,7 @@ import RotateLoader from "react-spinners/RotateLoader"
 interface LoadingSpinnerProps {
     isLoading: boolean
 }
-const COLOR = "#3b82f6"
+const COLOR = "#f97316"
 
 const LoadingSpinner = ({isLoading}: LoadingSpinnerProps) => {
   return (

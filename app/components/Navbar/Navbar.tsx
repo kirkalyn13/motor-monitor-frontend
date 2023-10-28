@@ -41,11 +41,11 @@ const Navbar = () => {
             </div>
 
             <ul className="hidden md:flex space-x-4 align-center items-center">
-                <li><a href="#" className="text-white hover:text-gray-300">Home</a></li>
-                <li><a href="#voltage" className="text-white hover:text-gray-300">Voltage</a></li>
-                <li><a href="#current" className="text-white hover:text-gray-300">Current</a></li>
-                <li><a href="#rpm" className="text-white hover:text-gray-300">RPM</a></li>
-                <li><a href="#temperature" className="text-white hover:text-gray-300">Temperature</a></li>
+                <li><a href="#" className="text-white hover:text-amber-500">Home</a></li>
+                <li><a href="#voltage" className="text-white hover:text-amber-500">Voltage</a></li>
+                <li><a href="#current" className="text-white hover:text-amber-500">Current</a></li>
+                <li><a href="#rpm" className="text-white hover:text-amber-500">RPM</a></li>
+                <li><a href="#temperature" className="text-white hover:text-amber-500">Temperature</a></li>
             </ul>
 
             <div className="hidden md:flex align-center items-center">
@@ -60,14 +60,14 @@ const Navbar = () => {
 
         { showMenu ?
                 (<ul className="space-y-2 text-center">
-                    <li><a href="#" className="text-white hover:text-gray-300">Home</a></li>
-                    <li><a href="#voltage" className="text-white hover:text-gray-300">Voltage</a></li>
-                    <li><a href="#current" className="text-white hover:text-gray-300">Current</a></li>
-                    <li><a href="#rpm" className="text-white hover:text-gray-300">RPM</a></li>
-                    <li><a href="#temperature" className="text-white hover:text-gray-300">Temperature</a></li>
+                    <li><a href="#" className="text-white hover:text-amber-500">Home</a></li>
+                    <li><a href="#voltage" className="text-white hover:text-amber-500">Voltage</a></li>
+                    <li><a href="#current" className="text-white hover:text-amber-500">Current</a></li>
+                    <li><a href="#rpm" className="text-white hover:text-amber-500">RPM</a></li>
+                    <li><a href="#temperature" className="text-white hover:text-amber-500">Temperature</a></li>
                     <li className="md:hidden">
                         <button 
-                            className="text-white hover:text-gray-300"
+                            className="text-white hover:text-amber-500"
                             onClick={() => handleLogout()}>
                             Logout
                         </button>
