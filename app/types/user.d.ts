@@ -5,4 +5,5 @@ export type User = {
     company?: string;
     motors: string[];
     alarms: string[];
+    thresholds: Threshold;
 }
