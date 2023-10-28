@@ -62,7 +62,7 @@ const Login = () => {
                     <Link 
                         className="text-amber-500"
                         href="/register" scroll={false}>
-                        Register here
+                        Register
                     </Link>
                 </div>
         </section>

@@ -135,7 +135,7 @@ function Registration() {
           <Link 
             className="text-amber-500"
             href="/login" scroll={false}>
-            Login here
+            Login
           </Link>
         </div>
       </section>
