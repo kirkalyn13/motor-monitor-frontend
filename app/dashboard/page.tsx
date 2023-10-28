@@ -30,6 +30,10 @@ const Dashboard = () => {
             <ul>
                 {userData?.alarms.map((alarm: string) => <li key={alarm}>{alarm}</li>)}
             </ul>
+            <h2>Thresholds:</h2>
+            <span>Over Voltage: {userData?.thresholds.overVoltage}V</span>
+            <span>Under Voltage: {userData?.thresholds.underVoltage}V</span>
+            <span>Over Heat: {userData?.thresholds.overHeat} degCelsius</span>
         </div>
     )
 }
