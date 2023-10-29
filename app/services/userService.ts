@@ -1,12 +1,12 @@
 import { firestoreDb as db } from "@/firebase-config"
-import { doc, collection, setDoc, getDocs, query, where } from "firebase/firestore"
+import { doc, collection, setDoc, getDocs, query, where, DocumentData } from "firebase/firestore"
 import { User } from "../types/user"
 
 const userRef = collection(db, "users")
 
 export const getUserData = async (email: string): Promise<any> => {
     try {
-        const data: any[] = []
+        const data: DocumentData[] = []
         const q = query(userRef, where("email", "==", email))
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
