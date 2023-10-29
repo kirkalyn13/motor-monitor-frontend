@@ -5,6 +5,7 @@ import useFirebaseAuth from "@/app/hooks/useFirebaseAuth"
 import { User } from "../types/user"
 import { FiSettings } from 'react-icons/fi'
 import SettingsModal from "../components/SettingsModal/SettingsModal"
+import Divider from "../components/Divider/Divider"
 
 const Dashboard = () => {
     const [ userData, setUserData ] = useState<User>()
@@ -21,8 +22,8 @@ const Dashboard = () => {
 
     return (
         <div className="pt-32 flex flex-col text-center space-y-2 bg-slate-800 text-white h-screen">
-            { showSettingsModal ? <SettingsModal closeModal={() => setShowSettingsModal(false)}/> : null}
-            <div className="text-left space-y-1">
+            { showSettingsModal ? <SettingsModal userData={userData!} closeModal={() => setShowSettingsModal(false)}/> : null}
+            <div className="text-left space-y-1 mb-2">
                 <div className="flex">
                     <h1 className="text-4xl text-left ms-8 md:ms-16">Dashboard</h1>
                     <FiSettings 
@@ -35,18 +36,7 @@ const Dashboard = () => {
                 </div>
                 <span className="text-md text-left ms-8 md:ms-16">{userData?.company ?? null}</span>
             </div>
-            {/* <span>Motors:</span>
-            <ul>
-                {userData?.motors.map((motor: string) => <li key={motor}>{motor}</li>)}
-            </ul>
-            <span>Alarms:</span>
-            <ul>
-                {userData?.alarms.map((alarm: string) => <li key={alarm}>{alarm}</li>)}
-            </ul>
-            <h2>Thresholds:</h2>
-            <span>Over Voltage: {userData?.thresholds.overVoltage}V</span>
-            <span>Under Voltage: {userData?.thresholds.underVoltage}V</span>
-            <span>Over Heat: {userData?.thresholds.overHeat} degCelsius</span> */}
+            <div className="mx-8"><Divider /></div>
         </div>
     )
 }
