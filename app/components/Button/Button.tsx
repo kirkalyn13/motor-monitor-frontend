@@ -1,12 +1,18 @@
 interface ButtonProps {
     text: string;
+    color?: string;
+    hoverColor?: string;
     handleOnClick: Function;
 }
 
-const Button = ({text, handleOnClick}: ButtonProps) => {
+const Button = ({text, 
+  color = "bg-amber-500",
+  hoverColor = "bg-amber-600",
+  handleOnClick
+}: ButtonProps) => {
   return (
     <button 
-        className="hidden md:block bg-amber-500 px-4 py-2 rounded-lg hover:bg-amber-600 focus:outline-none"
+        className={`${color} px-8 py-2 rounded-lg hover:${hoverColor} focus:outline-none`}
         onClick={() => handleOnClick()}>
         {text}
     </button>
