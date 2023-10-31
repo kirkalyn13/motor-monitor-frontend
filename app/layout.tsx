@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Motor Monitoring',
   description: 'Three-Phase Induction Motor Monitoring System',
+  keywords: ["monitoring", "induction", "motor", "arduino", "web", "preventive maintenance"]
 }
 
 export default function RootLayout({
