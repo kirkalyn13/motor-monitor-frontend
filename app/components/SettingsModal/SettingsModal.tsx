@@ -1,9 +1,10 @@
 "use client"
-import React from 'react'
+import { useState, useEffect } from 'react'
 import Divider from '../Divider/Divider';
 import Button from '../Button/Button';
 import { User } from '@/app/types/user';
 import { BiX } from 'react-icons/bi'
+import { Motor } from '@/app/types/motor';
 
 interface SettingsModalProps {
     closeModal: Function;
@@ -12,6 +13,12 @@ interface SettingsModalProps {
 }
 
 const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalProps) => {
+    const [ motor, setMotor ] = useState<Motor | null>(null)
+
+    useEffect(() => {
+        if (userData?.motors[0]) setMotor(userData?.motors[0])
+    },[userData])
+
   return (
     <section className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
         <div className="w-screen md:w-1/4 h-2/3 md:h-auto mx-8 bg-slate-800 text-white rounded-lg p-8 overflow-y-auto">
@@ -58,38 +65,28 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
                         text-sm text-black border rounded-lg 
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="text"
-                        value={userData?.motors[0]}
+                        value={motor?.unitID}
                         placeholder="Unit Number..." />
                 </div>
-                <h3 className="text-xl my-2">Thresholds:</h3>
+                {/* <h3 className="text-xl my-2">Thresholds:</h3> */}
                 <div className="flex flex-col md:flex-row justify-between">
-                    <label className="text-md me-4 flex items-center">Over Voltage (V): </label>
+                    <label className="text-md me-4 flex items-center">Rated Voltage (V): </label>
                     <input
                         className="md:w-1/2 w-full my-2 py-1 px-2
                         text-sm text-black border rounded-lg 
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="number"
-                        value={userData?.thresholds.overVoltage}
-                        placeholder="Over Voltage in Volts..." />
+                        value={motor?.ratedVoltage}
+                        placeholder="Rated Voltage..." />
                 </div>
                 <div className="flex flex-col md:flex-row justify-between">
-                    <label className="text-md me-4 flex items-center">Under Voltage (V): </label>
+                    <label className="text-md me-4 flex items-center">Max Temperature (Celsius): </label>
                     <input
                         className="md:w-1/2 w-full my-2 py-1 px-2
                         text-sm text-black border rounded-lg 
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="number"
-                        value={userData?.thresholds.underVoltage}
-                        placeholder="Under Voltage in Volts..." />
-                </div>
-                <div className="flex flex-col md:flex-row justify-between">
-                    <label className="text-md me-4 flex items-center">Overheat (Celsius): </label>
-                    <input
-                        className="md:w-1/2 w-full my-2 py-1 px-2
-                        text-sm text-black border rounded-lg 
-                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        type="number"
-                        value={userData?.thresholds.overHeat}
+                        value={motor?.overheatThreshold}
                         placeholder="Temperature in Celsius..." />
                 </div>
             <Divider />
