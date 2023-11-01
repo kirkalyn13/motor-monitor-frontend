@@ -1,23 +1,42 @@
 "use client"
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Divider from '../Divider/Divider';
 import Button from '../Button/Button';
-import { User } from '@/app/types/user';
+import { User, UserData } from '@/app/types/user';
 import { BiX } from 'react-icons/bi'
 import { Motor } from '@/app/types/motor';
+import { editUserData } from '@/app/services/userService';
 
 interface SettingsModalProps {
     closeModal: Function;
-    userData: User;
+    userData: UserData;
     isSetup?: boolean;
 }
 
 const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalProps) => {
-    const [ motor, setMotor ] = useState<Motor | null>(null)
+    const [ motor, setMotor ] = useState<Motor>(userData?.user.motors[0])
+    const [ updatedUser, setUpdatedUser ] = useState<User>(userData.user)
 
-    useEffect(() => {
-        if (userData?.motors[0]) setMotor(userData?.motors[0])
-    },[userData])
+    const handleSubmit = async (): Promise<void> => {
+        try {
+            const editedUser: UserData = {
+                id: userData.id,
+                user: {
+                    email: updatedUser.email,
+                    firstName: updatedUser.firstName,
+                    lastName: updatedUser.lastName,
+                    company: updatedUser.company,
+                    motors: [motor],
+                    alarms: updatedUser.alarms,
+                }
+            }
+            await editUserData(editedUser)
+            closeModal()
+            alert("User Update Successful!")
+        } catch(err) {
+            console.error(err)
+        }
+    }
 
   return (
     <section className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
@@ -35,7 +54,8 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
                         text-sm text-black border rounded-lg 
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="text"
-                        value={userData?.firstName}
+                        value={updatedUser?.firstName}
+                        onChange={(e) => setUpdatedUser({...updatedUser, firstName: e.target.value})}
                         placeholder="First Name..." />
                 </div>
                 <div className="flex flex-col md:flex-row justify-between">
@@ -45,7 +65,8 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
                         text-sm text-black border rounded-lg 
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="text"
-                        value={userData?.lastName}
+                        value={updatedUser?.lastName}
+                        onChange={(e) => setUpdatedUser({...updatedUser, lastName: e.target.value})}
                         placeholder="Last Name..." />
                 </div>
                 <div className="flex flex-col md:flex-row justify-between">
@@ -55,7 +76,8 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
                         text-sm text-black border rounded-lg 
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="text"
-                        value={userData?.company}
+                        value={updatedUser?.company}
+                        onChange={(e) => setUpdatedUser({...updatedUser, company: e.target.value})}
                         placeholder="Company..." />
                 </div>
                 <div className="flex flex-col md:flex-row justify-between">
@@ -65,7 +87,8 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
                         text-sm text-black border rounded-lg 
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="text"
-                        value={motor?.unitID}
+                        value={motor?.unitID ?? null}
+                        onChange={(e) => setMotor({...motor, unitID: e.target.value})}
                         placeholder="Unit Number..." />
                 </div>
                 {/* <h3 className="text-xl my-2">Thresholds:</h3> */}
@@ -76,7 +99,8 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
                         text-sm text-black border rounded-lg 
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="number"
-                        value={motor?.ratedVoltage}
+                        value={motor?.ratedVoltage ?? null}
+                        onChange={(e) => setMotor({...motor, ratedVoltage: parseInt(e.target.value)})}
                         placeholder="Rated Voltage..." />
                 </div>
                 <div className="flex flex-col md:flex-row justify-between">
@@ -86,12 +110,13 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
                         text-sm text-black border rounded-lg 
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="number"
-                        value={motor?.overheatThreshold}
+                        value={motor?.overheatThreshold ?? null}
+                        onChange={(e) => setMotor({...motor, overheatThreshold: parseInt(e.target.value)})}
                         placeholder="Temperature in Celsius..." />
                 </div>
             <Divider />
             <div className='flex space-x-2 align-center justify-center'>
-                <Button text="Save" handleOnClick={() => console.log("Save Settings.")}/>
+                <Button text="Save" handleOnClick={() => handleSubmit()}/>
                 <Button 
                     text="Close" 
                     color="bg-red-500"

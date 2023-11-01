@@ -6,3 +6,8 @@ export type User = {
     motors: Motor[];
     alarms: string[];
 }
+
+export type UserData = {
+    id: string;
+    user: User;
+}
