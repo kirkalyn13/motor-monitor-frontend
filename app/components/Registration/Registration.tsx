@@ -8,7 +8,6 @@ import Image from "next/image"
 import { LOGO_SRC } from "@/app/utils/src"
 import { addUserData } from "@/app/services/userService"
 import { User } from "@/app/types/user"
-import { defaultThresholds } from "@/app/utils/constants"
 
 function Registration() {
   const { authenticate, disable, error, setError } = useFirebaseAuth()
@@ -38,8 +37,7 @@ function Registration() {
                 lastName,
                 company,
                 motors: [],
-                alarms:[],
-                thresholds: defaultThresholds
+                alarms:[]
               }
               addUserData(newUser)
               router.push("/dashboard")

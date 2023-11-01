@@ -3,7 +3,11 @@ export type User = {
     firstName: string;
     lastName: string;
     company?: string;
-    motors: string[];
+    motors?: Motor[];
     alarms: string[];
-    thresholds: Threshold;
+}
+
+export type UserData = {
+    id: string;
+    user: User;
 }

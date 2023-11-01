@@ -1,6 +1,6 @@
 import { firestoreDb as db } from "@/firebase-config"
-import { doc, collection, setDoc, getDocs, query, where, DocumentData } from "firebase/firestore"
-import { User } from "../types/user"
+import { doc, collection, setDoc, getDocs, updateDoc, query, where, DocumentData } from "firebase/firestore"
+import { User, UserData } from "../types/user"
 
 const userRef = collection(db, "users")
 
@@ -10,7 +10,10 @@ export const getUserData = async (email: string): Promise<any> => {
         const q = query(userRef, where("email", "==", email))
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-            data.push(doc.data())
+            data.push({
+                id: doc.id,
+                user: doc.data()
+            })
         })
         return data[0]
     } catch(err) {
@@ -22,6 +25,14 @@ export const getUserData = async (email: string): Promise<any> => {
 export const addUserData = async(user: User): Promise<void> => {
     try {
         await setDoc(doc(userRef), user)
+    } catch(err) {
+        console.error(err)
+    }
+}
+
+export const editUserData = async(userData: UserData): Promise<void> => {
+    try {
+        await updateDoc(doc(db, "users", userData.id), userData.user)
     } catch(err) {
         console.error(err)
     }

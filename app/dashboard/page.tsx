@@ -2,13 +2,13 @@
 import { useState, useEffect } from "react"
 import { getUserData } from "../services/userService"
 import useFirebaseAuth from "@/app/hooks/useFirebaseAuth"
-import { User } from "../types/user"
+import { User, UserData } from "../types/user"
 import { FiSettings } from 'react-icons/fi'
 import SettingsModal from "../components/SettingsModal/SettingsModal"
 import Divider from "../components/Divider/Divider"
 
 const Dashboard = () => {
-    const [ userData, setUserData ] = useState<User>()
+    const [ userData, setUserData ] = useState<UserData>()
     const [ showSettingsModal, setShowSettingsModal ] = useState<boolean>(false)
     const { user } = useFirebaseAuth()
 
@@ -18,7 +18,7 @@ const Dashboard = () => {
                 .then((res) => {
                     setUserData(res)
                 }).catch((err) => console.error(err))
-    },[user])
+    }, [ user, showSettingsModal ])
 
     return (
         <div className="pt-32 flex flex-col text-center space-y-2 bg-slate-800 text-white h-screen">
@@ -32,9 +32,9 @@ const Dashboard = () => {
                 </div>
                 <div className="flex mt-2">
                     <span className="text-xl text-left ms-8 md:ms-16">Welcome, </span>
-                    <span className="text-xl text-left ms-2 text-amber-500">{userData?.firstName ?? "..."} {userData?.lastName ?? "..."}</span>
+                    <span className="text-xl text-left ms-2 text-amber-500">{userData?.user.firstName ?? "..."} {userData?.user.lastName ?? "..."}</span>
                 </div>
-                <span className="text-md text-left ms-8 md:ms-16">{userData?.company ?? null}</span>
+                <span className="text-md text-left ms-8 md:ms-16">{userData?.user.company ?? null}</span>
             </div>
             <div className="mx-8"><Divider /></div>
         </div>
