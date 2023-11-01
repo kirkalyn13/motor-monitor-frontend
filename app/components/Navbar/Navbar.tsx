@@ -51,7 +51,7 @@ const Navbar = () => {
             <div className="hidden md:flex align-center items-center">
                 <span className="text-white text-md me-4">{user?.email}</span>
                 <BiLogOut 
-                    className="text-2xl text-white hover:text-amber-500"
+                    className="text-2xl text-white me-4 hover:text-amber-500"
                     onClick={() => handleLogout()} />
             </div>
         </div>

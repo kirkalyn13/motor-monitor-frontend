@@ -18,7 +18,7 @@ const Dashboard = () => {
                 .then((res) => {
                     setUserData(res)
                 }).catch((err) => console.error(err))
-    },[user])
+    }, [ user, showSettingsModal ])
 
     return (
         <div className="pt-32 flex flex-col text-center space-y-2 bg-slate-800 text-white h-screen">

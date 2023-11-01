@@ -6,7 +6,6 @@ const userRef = collection(db, "users")
 
 export const getUserData = async (email: string): Promise<any> => {
     try {
-        let id: String
         const data: DocumentData[] = []
         const q = query(userRef, where("email", "==", email))
         const querySnapshot = await getDocs(q);

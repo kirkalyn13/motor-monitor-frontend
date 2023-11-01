@@ -10,12 +10,13 @@ import { editUserData } from '@/app/services/userService';
 interface SettingsModalProps {
     closeModal: Function;
     userData: UserData;
-    isSetup?: boolean;
 }
 
-const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalProps) => {
+const SettingsModal = ({closeModal, userData }: SettingsModalProps) => {
     const [ motor, setMotor ] = useState<Motor>(userData?.user.motors[0])
     const [ updatedUser, setUpdatedUser ] = useState<User>(userData.user)
+
+    const needSetup = motor?.unitID === "" || motor?.ratedVoltage === undefined || motor?.overheatThreshold === undefined
 
     const handleSubmit = async (): Promise<void> => {
         try {
@@ -26,10 +27,11 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
                     firstName: updatedUser.firstName,
                     lastName: updatedUser.lastName,
                     company: updatedUser.company,
-                    motors: [motor],
+                    motors: [ motor ],
                     alarms: updatedUser.alarms,
                 }
             }
+            debugger
             await editUserData(editedUser)
             closeModal()
             alert("User Update Successful!")
@@ -42,11 +44,11 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
     <section className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
         <div className="w-screen md:w-1/4 h-2/3 md:h-auto mx-8 bg-slate-800 text-white rounded-lg p-8 overflow-y-auto">
             <div className="flex flex-row justify-between align-center mb-4">
-                <h2 className="text-2xl font-bold">{isSetup ? "Setup Wizard" : "Settings"}</h2>
+                <h2 className="text-2xl font-bold">{needSetup ? "Setup" : "Settings"}</h2>
                 <BiX className="text-4xl" onClick={() => closeModal()}/>
             </div>
             <Divider />
-            <h3 className="text-xl my-2">User Information:</h3>
+                <h3 className="text-md my-2">User Information:</h3>
                 <div className="flex flex-col md:flex-row justify-between">
                     <label className="text-md me-4 flex items-center">First Name: </label>
                     <input
@@ -80,6 +82,7 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
                         onChange={(e) => setUpdatedUser({...updatedUser, company: e.target.value})}
                         placeholder="Company..." />
                 </div>
+                <h3 className="text-md my-2">Motor Specs and Thresholds:</h3>
                 <div className="flex flex-col md:flex-row justify-between">
                     <label className="text-md me-4 flex items-center">Motor: </label>
                     <input
@@ -91,7 +94,6 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
                         onChange={(e) => setMotor({...motor, unitID: e.target.value})}
                         placeholder="Unit Number..." />
                 </div>
-                {/* <h3 className="text-xl my-2">Thresholds:</h3> */}
                 <div className="flex flex-col md:flex-row justify-between">
                     <label className="text-md me-4 flex items-center">Rated Voltage (V): </label>
                     <input
@@ -104,7 +106,7 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
                         placeholder="Rated Voltage..." />
                 </div>
                 <div className="flex flex-col md:flex-row justify-between">
-                    <label className="text-md me-4 flex items-center">Max Temperature (Celsius): </label>
+                    <label className="text-md me-4 flex items-center">Overheat (&deg;C): </label>
                     <input
                         className="md:w-1/2 w-full my-2 py-1 px-2
                         text-sm text-black border rounded-lg 
@@ -116,7 +118,7 @@ const SettingsModal = ({closeModal, userData, isSetup = false }: SettingsModalPr
                 </div>
             <Divider />
             <div className='flex space-x-2 align-center justify-center'>
-                <Button text="Save" handleOnClick={() => handleSubmit()}/>
+                <Button disable={needSetup} text="Save" handleOnClick={() => handleSubmit()}/>
                 <Button 
                     text="Close" 
                     color="bg-red-500"
