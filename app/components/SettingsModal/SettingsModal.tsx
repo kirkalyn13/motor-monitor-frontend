@@ -16,7 +16,7 @@ const SettingsModal = ({closeModal, userData }: SettingsModalProps) => {
     const [ motor, setMotor ] = useState<Motor>(userData?.user.motors[0])
     const [ updatedUser, setUpdatedUser ] = useState<User>(userData.user)
 
-    const needSetup = motor?.unitID === "" || motor?.ratedVoltage === undefined || motor?.overheatThreshold === undefined
+    const needSetup = motor?.unitID === "" || !motor?.ratedVoltage || !motor?.ratedCurrent || !motor?.overheatThreshold
 
     const handleSubmit = async (): Promise<void> => {
         try {
@@ -104,6 +104,17 @@ const SettingsModal = ({closeModal, userData }: SettingsModalProps) => {
                         value={motor?.ratedVoltage ?? null}
                         onChange={(e) => setMotor({...motor, ratedVoltage: parseInt(e.target.value)})}
                         placeholder="Rated Voltage..." />
+                </div>
+                <div className="flex flex-col md:flex-row justify-between">
+                    <label className="text-md me-4 flex items-center">Rated Current (A): </label>
+                    <input
+                        className="md:w-1/2 w-full my-2 py-1 px-2
+                        text-sm text-black border rounded-lg 
+                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        type="number"
+                        value={motor?.ratedCurrent ?? null}
+                        onChange={(e) => setMotor({...motor, ratedCurrent: parseInt(e.target.value)})}
+                        placeholder="Rated Current..." />
                 </div>
                 <div className="flex flex-col md:flex-row justify-between">
                     <label className="text-md me-4 flex items-center">Overheat (&deg;C): </label>

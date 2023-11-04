@@ -3,9 +3,8 @@ import useFirebaseAuth from "@/app/hooks/useFirebaseAuth"
 import Image from "next/image"
 import { useRouter } from 'next/navigation'
 import { useState } from "react"
-import { BiMenu } from 'react-icons/bi'
+import { BiMenu, BiLogOut } from 'react-icons/bi'
 import { LOGO_SRC } from "@/app/utils/src"
-import { BiLogOut } from 'react-icons/bi'
 
 const Navbar = () => {
     const { authenticate, user } = useFirebaseAuth()
@@ -21,7 +20,7 @@ const Navbar = () => {
     }
 
   return (
-    <nav className="w-screen fixed bg-blue-600 p-4">
+    <nav className="w-screen fixed bg-blue-600 p-4 z-10">
         <div className="container mx-auto flex flex-wrap justify-between items-center">
             <div className="flex items-center">
                 <Image 
@@ -44,7 +43,6 @@ const Navbar = () => {
                 <li><a href="#" className="text-white hover:text-amber-500">Home</a></li>
                 <li><a href="#voltage" className="text-white hover:text-amber-500">Voltage</a></li>
                 <li><a href="#current" className="text-white hover:text-amber-500">Current</a></li>
-                <li><a href="#rpm" className="text-white hover:text-amber-500">RPM</a></li>
                 <li><a href="#temperature" className="text-white hover:text-amber-500">Temperature</a></li>
             </ul>
 
@@ -61,7 +59,6 @@ const Navbar = () => {
                     <li><a href="#" className="text-white border-t-1 hover:text-amber-500">Home</a></li>
                     <li><a href="#voltage" className="text-white hover:text-amber-500">Voltage</a></li>
                     <li><a href="#current" className="text-white hover:text-amber-500">Current</a></li>
-                    <li><a href="#rpm" className="text-white hover:text-amber-500">RPM</a></li>
                     <li><a href="#temperature" className="text-white hover:text-amber-500">Temperature</a></li>
                     <li className="md:hidden">
                         <button 
