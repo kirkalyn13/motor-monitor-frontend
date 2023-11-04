@@ -6,6 +6,7 @@ import { User, UserData } from "../types/user"
 import { FiSettings } from 'react-icons/fi'
 import SettingsModal from "../components/SettingsModal/SettingsModal"
 import Divider from "../components/Divider/Divider"
+import Summary from "../components/Summary/Summary"
 
 const Dashboard = () => {
     const [ userData, setUserData ] = useState<UserData>()
@@ -21,7 +22,7 @@ const Dashboard = () => {
     }, [ user, showSettingsModal ])
 
     return (
-        <div className="pt-32 flex flex-col text-center space-y-2 bg-slate-800 text-white h-screen">
+        <div className="pt-32 flex flex-col text-center space-y-2 bg-slate-800 text-white">
             { showSettingsModal ? <SettingsModal userData={userData!} closeModal={() => setShowSettingsModal(false)}/> : null}
             <div className="text-left space-y-1 mb-2">
                 <div className="flex">
@@ -36,6 +37,8 @@ const Dashboard = () => {
                 </div>
                 <span className="text-md text-left ms-8 md:ms-16">{userData?.user.company ?? null}</span>
             </div>
+            <div className="mx-8"><Divider /></div>
+            <Summary />
             <div className="mx-8"><Divider /></div>
         </div>
     )

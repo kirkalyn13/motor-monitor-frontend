@@ -44,7 +44,6 @@ const Navbar = () => {
                 <li><a href="#" className="text-white hover:text-amber-500">Home</a></li>
                 <li><a href="#voltage" className="text-white hover:text-amber-500">Voltage</a></li>
                 <li><a href="#current" className="text-white hover:text-amber-500">Current</a></li>
-                <li><a href="#rpm" className="text-white hover:text-amber-500">RPM</a></li>
                 <li><a href="#temperature" className="text-white hover:text-amber-500">Temperature</a></li>
             </ul>
 
@@ -61,7 +60,6 @@ const Navbar = () => {
                     <li><a href="#" className="text-white border-t-1 hover:text-amber-500">Home</a></li>
                     <li><a href="#voltage" className="text-white hover:text-amber-500">Voltage</a></li>
                     <li><a href="#current" className="text-white hover:text-amber-500">Current</a></li>
-                    <li><a href="#rpm" className="text-white hover:text-amber-500">RPM</a></li>
                     <li><a href="#temperature" className="text-white hover:text-amber-500">Temperature</a></li>
                     <li className="md:hidden">
                         <button 
