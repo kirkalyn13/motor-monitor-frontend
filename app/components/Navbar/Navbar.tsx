@@ -3,9 +3,8 @@ import useFirebaseAuth from "@/app/hooks/useFirebaseAuth"
 import Image from "next/image"
 import { useRouter } from 'next/navigation'
 import { useState } from "react"
-import { BiMenu } from 'react-icons/bi'
+import { BiMenu, BiLogOut } from 'react-icons/bi'
 import { LOGO_SRC } from "@/app/utils/src"
-import { BiLogOut } from 'react-icons/bi'
 
 const Navbar = () => {
     const { authenticate, user } = useFirebaseAuth()
