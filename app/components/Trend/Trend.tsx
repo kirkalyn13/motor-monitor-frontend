@@ -89,7 +89,7 @@ const Trend = ({series, unit, threshold, xAxis, yLabel}: TrendProps) => {
                 series={series} 
                 type="line" 
                 height="500"
-                width="1200"
+                width="100%"
                  />
     </div>
   )
