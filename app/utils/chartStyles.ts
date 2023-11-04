@@ -1,6 +1,7 @@
 export const chartStyles = {
     colors: {
         white: "#FFFFFF",
+        blue: "#2563EB",
         red: "#F44336",
         green: "#4CAF50",
         gray: "#6B7280",
@@ -8,7 +9,7 @@ export const chartStyles = {
     },
     fonts: {
         sizes: {
-            yLabel: "16px"
+            yLabel: "12px"
         } 
     },
     sizes: {

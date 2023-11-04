@@ -6,7 +6,7 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 const SummaryPie = () => {
     const series: number[] = [4,3]
     const options: ApexCharts.ApexOptions = {
-        colors: [chartStyles.colors.green, chartStyles.colors.red],
+        colors: [chartStyles.colors.blue, chartStyles.colors.red],
         plotOptions:{
           pie:{
             donut:{
