@@ -1,5 +1,7 @@
+'use client'
 import { chartStyles } from '@/app/utils/chartStyles'
-import Chart from 'react-apexcharts'
+import dynamic from 'next/dynamic'
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const SummaryPie = () => {
     const series: number[] = [4,3]
@@ -62,7 +64,8 @@ const SummaryPie = () => {
                 options={options} 
                 series={series} 
                 type="donut" 
-                width="380" />
+                width="350"
+                height="350" />
         </div>
     )
 }

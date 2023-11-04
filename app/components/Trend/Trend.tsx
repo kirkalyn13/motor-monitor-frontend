@@ -1,6 +1,8 @@
+'use client'
 import { Metrics } from '@/app/types/metrics'
 import { chartStyles } from '@/app/utils/chartStyles'
-import Chart from 'react-apexcharts'
+import dynamic from 'next/dynamic'
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 interface TrendProps {
     series: Metrics[],
@@ -86,7 +88,8 @@ const Trend = ({series, unit, threshold, xAxis, yLabel}: TrendProps) => {
                 options={options} 
                 series={series} 
                 type="line" 
-                height={400}
+                height="500"
+                width="1200"
                  />
     </div>
   )
