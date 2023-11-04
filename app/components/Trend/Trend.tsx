@@ -16,7 +16,7 @@ const Trend = ({metricName, unit}: TrendProps) => {
       data: [230, 230, 230, 0, 0, 220, 230]
     },
     {
-      name: metricName + "2",
+      name: metricName + "3",
       data: [220, 100, 230, 230, 200, 230, 230]
     }]
     const options: ApexCharts.ApexOptions = {

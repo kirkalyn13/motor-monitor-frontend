@@ -5,7 +5,7 @@ import SummaryPie from './SummaryPie/SummaryPie'
 
 const Summary = () => {
   return (
-    <section className="w-screen flex flex-col md:flex-row justify-center align-center py-8 space-y-8">
+    <section className="w-screen flex flex-col md:flex-row justify-center align-center py-8 space-y-8 md:space-y-0">
         <SummaryTable />
         <SummaryPie />
         <Alarms />
