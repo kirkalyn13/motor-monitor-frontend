@@ -3,7 +3,7 @@ export type User = {
     firstName: string;
     lastName: string;
     company?: string;
-    motors?: Motor[];
+    motors: Motor[];
     alarms: string[];
 }
 

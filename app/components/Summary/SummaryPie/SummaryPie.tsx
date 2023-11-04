@@ -3,9 +3,6 @@ import Chart from 'react-apexcharts'
 const SummaryPie = () => {
     const series: number[] = [4,3]
     const options: ApexCharts.ApexOptions = {
-        chart: {
-          type: 'donut',
-        },
         colors: ['#4CAF50', '#F44336'],
         plotOptions:{
           pie:{
@@ -60,7 +57,7 @@ const SummaryPie = () => {
         <div className="w-screen md:w-1/3 text-center">
             <h3 className="w-full px-4 py-2">Summary</h3>
             <Chart 
-                className="flex justify-center align-center"
+                className="flex justify-center align-center z-1"
                 options={options} 
                 series={series} 
                 type="donut" 
