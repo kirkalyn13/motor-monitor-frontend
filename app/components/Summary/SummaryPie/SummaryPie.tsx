@@ -1,8 +1,8 @@
 import Chart from 'react-apexcharts'
 
 const SummaryPie = () => {
-    const series = [4,3]
-    const options = {
+    const series: number[] = [4,3]
+    const options: ApexCharts.ApexOptions = {
         chart: {
           type: 'donut',
         },

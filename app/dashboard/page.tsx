@@ -7,6 +7,7 @@ import { FiSettings } from 'react-icons/fi'
 import SettingsModal from "../components/SettingsModal/SettingsModal"
 import Divider from "../components/Divider/Divider"
 import Summary from "../components/Summary/Summary"
+import Trend from "../components/Trend/Trend"
 
 const Dashboard = () => {
     const [ userData, setUserData ] = useState<UserData>()
@@ -39,6 +40,8 @@ const Dashboard = () => {
             </div>
             <div className="mx-8"><Divider /></div>
             <Summary />
+            <div className="mx-8"><Divider /></div>
+            <Trend title="Sample Trend" unit="V"/>
             <div className="mx-8"><Divider /></div>
         </div>
     )
