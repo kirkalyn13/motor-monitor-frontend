@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 import { getUserData } from "../services/userService"
 import useFirebaseAuth from "@/app/hooks/useFirebaseAuth"
-import { User, UserData } from "../types/user"
+import { UserData } from "../types/user"
 import { FiSettings } from 'react-icons/fi'
 import SettingsModal from "../components/SettingsModal/SettingsModal"
 import Divider from "../components/Divider/Divider"
