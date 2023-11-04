@@ -7,7 +7,9 @@ import { FiSettings } from 'react-icons/fi'
 import SettingsModal from "../components/SettingsModal/SettingsModal"
 import Divider from "../components/Divider/Divider"
 import Summary from "../components/Summary/Summary"
-import Trend from "../components/Trend/Trend"
+import VoltageTrend from "../components/VoltageTrend/VoltageTrend"
+import CurrentTrend from "../components/CurrentTrend/CurrentTrend"
+import TemperatureTrend from "../components/TemperatureTrend/TemperatureTrend"
 
 const Dashboard = () => {
     const [ userData, setUserData ] = useState<UserData>()
@@ -38,11 +40,15 @@ const Dashboard = () => {
                 </div>
                 <span className="text-md text-left ms-8 md:ms-16">{userData?.user.company ?? null}</span>
             </div>
-            <div className="mx-8"><Divider /></div>
+            <Divider />
             <Summary />
-            <div className="mx-8"><Divider /></div>
-            <Trend metricName="Voltage" unit="V"/>
-            <div className="mx-8"><Divider /></div>
+            <Divider />
+            <VoltageTrend />
+            <Divider />
+            <CurrentTrend />
+            <Divider />
+            <TemperatureTrend threshold={userData?.user.motors[0].overheatThreshold ?? 100}/>
+            <Divider />
         </div>
     )
 }

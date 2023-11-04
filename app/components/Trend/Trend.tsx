@@ -2,23 +2,15 @@ import { Metrics } from '@/app/types/metrics'
 import Chart from 'react-apexcharts'
 
 interface TrendProps {
-    metricName: string,
+    series: Metrics[],
     unit: string,
+    threshold: number,
+    xAxis: string[],
+    yLabel: string
 }
 
-const Trend = ({metricName, unit}: TrendProps) => {
-    const series: Metrics[] = [{
-        name: metricName,
-        data: [230, 400, 230, 10, 100, 220, 230]
-    },
-    {
-      name: metricName + "2",
-      data: [230, 230, 230, 0, 0, 220, 230]
-    },
-    {
-      name: metricName + "3",
-      data: [220, 100, 230, 230, 200, 230, 230]
-    }]
+const Trend = ({series, unit, threshold, xAxis, yLabel}: TrendProps) => {
+    
     const options: ApexCharts.ApexOptions = {
         chart: {
             height: 350,
@@ -28,13 +20,13 @@ const Trend = ({metricName, unit}: TrendProps) => {
           annotations: {
             yaxis: [
               {
-                y: 300,
-                borderColor: '#FFA000',
+                y: threshold,
+                borderColor: '#F44336',
                 label: {
-                  borderColor: '#FFA000',
+                  borderColor: '#F44336',
                   style: {
                     color: '#fff',
-                    background: '#FFA000'
+                    background: '#F44336'
                   },
                   text: 'Treshold'
                 }
@@ -48,6 +40,14 @@ const Trend = ({metricName, unit}: TrendProps) => {
             borderColor: '#455A64'
           },
           yaxis:{
+            title: {
+              text: yLabel,
+              offsetX: -8,
+              style: {
+                color: "#ffffff",
+                fontSize: "16px",
+              }
+            },
             labels:{
               style:{
                 colors: ["#FFFFFF"]
@@ -59,15 +59,15 @@ const Trend = ({metricName, unit}: TrendProps) => {
           },
           legend:{
             labels:{
-              colors: ["000000"]
+              colors: ["#FFFFFF", "#FFFFFF", "#FFFFFF"]
             }
           },
           xaxis: {
             // type: 'datetime',
-            categories: [0,100,200,300,400,500],
+            categories: xAxis,
             labels: {
               style: {
-                colors: ["#FFFFFF","#FFFFFF","#FFFFFF","#FFFFFF","#FFFFFF","#FFFFFF","#FFFFFF"]
+                colors: "#FFFFFF"
               }
             }
           },
@@ -81,13 +81,13 @@ const Trend = ({metricName, unit}: TrendProps) => {
         }
 
   return (
-    <div className="text-black mx-4 md:mx-32">
+    <div className="text-black mx-2 md:mx-32">
         <Chart 
                 className="flex justify-center align-center z-0"
                 options={options} 
                 series={series} 
                 type="line" 
-                height={350}
+                height={400}
                  />
     </div>
   )
