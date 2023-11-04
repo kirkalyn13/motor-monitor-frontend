@@ -1,14 +1,23 @@
+import { Metrics } from '@/app/types/metrics'
 import Chart from 'react-apexcharts'
 
 interface TrendProps {
-    title: string,
+    metricName: string,
     unit: string,
 }
 
-const Trend = ({title, unit}: TrendProps) => {
-    const series = [{
-        name: "Sample Trend",
+const Trend = ({metricName, unit}: TrendProps) => {
+    const series: Metrics[] = [{
+        name: metricName,
         data: [230, 400, 230, 10, 100, 220, 230]
+    },
+    {
+      name: metricName + "2",
+      data: [230, 230, 230, 0, 0, 220, 230]
+    },
+    {
+      name: metricName + "2",
+      data: [220, 100, 230, 230, 200, 230, 230]
     }]
     const options: ApexCharts.ApexOptions = {
         chart: {
@@ -54,7 +63,7 @@ const Trend = ({title, unit}: TrendProps) => {
             }
           },
           xaxis: {
-            type: 'datetime',
+            // type: 'datetime',
             categories: [0,100,200,300,400,500],
             labels: {
               style: {
@@ -72,9 +81,9 @@ const Trend = ({title, unit}: TrendProps) => {
         }
 
   return (
-    <div className="text-white mx-4 md:mx-32">
+    <div className="text-black mx-4 md:mx-32">
         <Chart 
-                className="flex justify-center align-center"
+                className="flex justify-center align-center z-0"
                 options={options} 
                 series={series} 
                 type="line" 

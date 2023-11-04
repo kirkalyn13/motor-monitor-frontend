@@ -41,7 +41,7 @@ const Dashboard = () => {
             <div className="mx-8"><Divider /></div>
             <Summary />
             <div className="mx-8"><Divider /></div>
-            <Trend title="Sample Trend" unit="V"/>
+            <Trend metricName="Voltage" unit="V"/>
             <div className="mx-8"><Divider /></div>
         </div>
     )
