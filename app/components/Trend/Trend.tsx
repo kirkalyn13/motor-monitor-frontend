@@ -1,4 +1,5 @@
 import { Metrics } from '@/app/types/metrics'
+import { chartStyles } from '@/app/utils/chartStyles'
 import Chart from 'react-apexcharts'
 
 interface TrendProps {
@@ -10,23 +11,21 @@ interface TrendProps {
 }
 
 const Trend = ({series, unit, threshold, xAxis, yLabel}: TrendProps) => {
-    
     const options: ApexCharts.ApexOptions = {
         chart: {
             height: 350,
             type: 'area',
-            foreColor: '#4CAF50',
           },
           annotations: {
             yaxis: [
               {
                 y: threshold,
-                borderColor: '#F44336',
+                borderColor: chartStyles.colors.red,
                 label: {
-                  borderColor: '#F44336',
+                  borderColor: chartStyles.colors.red,
                   style: {
-                    color: '#fff',
-                    background: '#F44336'
+                    color: chartStyles.colors.white,
+                    background: chartStyles.colors.red
                   },
                   text: 'Treshold'
                 }
@@ -37,20 +36,20 @@ const Trend = ({series, unit, threshold, xAxis, yLabel}: TrendProps) => {
             enabled: false
           },
           grid:{
-            borderColor: '#455A64'
+            borderColor: chartStyles.colors.gray
           },
           yaxis:{
             title: {
               text: yLabel,
               offsetX: -8,
               style: {
-                color: "#ffffff",
-                fontSize: "16px",
+                color: chartStyles.colors.white,
+                fontSize: chartStyles.fonts.sizes.yLabel,
               }
             },
             labels:{
               style:{
-                colors: ["#FFFFFF"]
+                colors: [chartStyles.colors.white]
               }
             }
           },
@@ -59,7 +58,7 @@ const Trend = ({series, unit, threshold, xAxis, yLabel}: TrendProps) => {
           },
           legend:{
             labels:{
-              colors: ["#FFFFFF", "#FFFFFF", "#FFFFFF"]
+              colors: [chartStyles.colors.white, chartStyles.colors.white, chartStyles.colors.white]
             }
           },
           xaxis: {
@@ -67,7 +66,7 @@ const Trend = ({series, unit, threshold, xAxis, yLabel}: TrendProps) => {
             categories: xAxis,
             labels: {
               style: {
-                colors: "#FFFFFF"
+                colors: chartStyles.colors.white
               }
             }
           },

@@ -1,9 +1,10 @@
+import { chartStyles } from '@/app/utils/chartStyles'
 import Chart from 'react-apexcharts'
 
 const SummaryPie = () => {
     const series: number[] = [4,3]
     const options: ApexCharts.ApexOptions = {
-        colors: ['#4CAF50', '#F44336'],
+        colors: [chartStyles.colors.green, chartStyles.colors.red],
         plotOptions:{
           pie:{
             donut:{
@@ -14,12 +15,12 @@ const SummaryPie = () => {
                 },
                 value:{
                   show: true,
-                  color: '#FFFFFF'
+                  color: chartStyles.colors.white
                 },
                 total:{
                   label: "Total Metrics",
                   show: true,
-                  color: '#FFFFFF'
+                  color: chartStyles.colors.white
                 }
               }
             },
@@ -27,21 +28,21 @@ const SummaryPie = () => {
         },
         labels: ['Healthy', 'Alarms'],
         responsive: [{
-          breakpoint: 480,
+          breakpoint: chartStyles.breakpoint,
           options: {
             chart: {
-              width: 300,
-              height: 300
+              width: chartStyles.sizes.pieWidth,
+              height:  chartStyles.sizes.pieHeight
             },
           }
         }],
         stroke:{
-            colors:['#1E293B']
+            colors:[chartStyles.colors.bg]
         },
         legend: {
             position: 'bottom',
             labels:{
-              colors: ["#FFFFFF", "#FFFFFF"]
+              colors: chartStyles.colors.white
             }
           },
         tooltip: {
