@@ -1,5 +1,3 @@
-import React from 'react'
-
 const dummyData = {
   line1Voltage: 220,
   line2Voltage: 225,
@@ -10,7 +8,15 @@ const dummyData = {
   temperature: 75,
 }
 
-const SummaryTable = () => {
+interface SummaryTableProps {
+  unitID: string | null;
+}
+
+const SummaryTable = ({unitID}: SummaryTableProps) => {
+  // TODO: Add fetch for latest data for each metrics
+  // TODO: REST API to return latest data and health status (boolean) for each:
+  // {data: {line1Voltage: 230, ...}, status: {line1Voltage: true, ...}}
+
   const renderDataRow = (data: number, label: string, unit: string) => {
       return (
         <tr>

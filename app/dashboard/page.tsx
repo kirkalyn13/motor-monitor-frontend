@@ -47,7 +47,7 @@ const Dashboard = () => {
             <Divider />
             <CurrentTrend />
             <Divider />
-            <TemperatureTrend threshold={userData?.user.motors[0].overheatThreshold ?? 100}/>
+            <TemperatureTrend threshold={userData?.user.motors[0] ? userData?.user.motors[0].overheatThreshold : 0}/>
             <Divider />
         </div>
     )
