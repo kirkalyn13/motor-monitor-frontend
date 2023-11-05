@@ -41,7 +41,7 @@ const Dashboard = () => {
                 <span className="text-md text-left ms-8 md:ms-16">{userData?.user.company ?? null}</span>
             </div>
             <Divider />
-            <Summary />
+            <Summary userData={userData!}/>
             <Divider />
             <VoltageTrend />
             <Divider />
