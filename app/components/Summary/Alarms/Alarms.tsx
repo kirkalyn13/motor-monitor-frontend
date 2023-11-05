@@ -4,7 +4,7 @@ interface AlarmsProps {
   alarms: string[]
 }
 
-const Alarms = ({alarms}: AlarmsProps) => {
+const Alarms = ({alarms = []}: AlarmsProps) => {
   return (
     <div className="w-screen md:w-1/3">
       <h3 className="w-full px-4 py-2">Alarms</h3>
