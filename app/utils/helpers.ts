@@ -19,3 +19,18 @@ export const getCurrentYear = (): number => {
     const currentYear: number = new Date().getFullYear();
     return currentYear;
   }
+
+export const getStatusTextColor = (status: string, isBlink: boolean): string => {
+    switch (status) {
+      case "normal":
+        return ""
+      case "warning":
+        return "font-bold text-amber-500"
+      case "critical":
+        return `font-bold text-red-500 ${isBlink ? "blink" : "null"}`
+      default:
+        return ""
+    }
+  }
+
+export const getValueDeltaSign = (prev: number, curr: number) => prev > curr ? "↓" : "↑"

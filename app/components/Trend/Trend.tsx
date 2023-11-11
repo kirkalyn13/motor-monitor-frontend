@@ -31,6 +31,18 @@ const Trend = ({series, unit, threshold, xAxis, yLabel}: TrendProps) => {
                   },
                   text: 'Treshold'
                 }
+              },
+              {
+                y: threshold*0.9,
+                borderColor: chartStyles.colors.amber,
+                label: {
+                  borderColor: chartStyles.colors.amber,
+                  style: {
+                    color: chartStyles.colors.white,
+                    background: chartStyles.colors.amber
+                  },
+                  text: 'Warning'
+                }
               }
             ]
           },

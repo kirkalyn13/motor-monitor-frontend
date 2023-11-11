@@ -1,6 +1,7 @@
 import React from 'react'
 import Trend from '../Trend/Trend'
 import { Metrics } from '@/app/types/metrics'
+import { getValueDeltaSign } from '@/app/utils/helpers'
 
 const series: Metrics[] = [{
     name: "Temperature",
@@ -17,6 +18,12 @@ const TemperatureTrend = ({threshold}: TemperatureTrendProps) => {
   return (
     <section id="temperature" className="h-screen my-4 flex flex-col justify-center align-center">
         <h2 className="text-xl my-2">Temperature</h2>
+        <div className="flex flex-row justify-center my-4 space-x-16">
+          <div className="flex flex-col">
+            <span>Overall</span>
+            <span>{getValueDeltaSign(series[0].data[10], series[0].data[11])} {series[0].data[11]}</span>
+          </div>
+        </div>
         <Trend series={series} unit="°C" threshold={threshold} xAxis={xAxis} yLabel='TEMPERATURE (°C)'/>
     </section>
   )

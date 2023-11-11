@@ -1,7 +1,9 @@
+import { Alarm } from '@/app/types/user'
+import { getStatusTextColor } from '@/app/utils/helpers'
 import React from 'react'
 
 interface AlarmsProps {
-  alarms: string[]
+  alarms: Alarm[]
 }
 
 const Alarms = ({alarms = []}: AlarmsProps) => {
@@ -10,7 +12,7 @@ const Alarms = ({alarms = []}: AlarmsProps) => {
       <h3 className="w-full px-4 py-2">Alarms</h3>
       <ul className="my-4 space-y-2 text-left">
         {
-          alarms.map((alarm: string) => <li className="ms-8 md:ms-32" key={alarm}>{alarm}</li>)
+          alarms.map((alarm: Alarm) => <li className={`ms-8 md:ms-32 ${getStatusTextColor(alarm.status, false)}`} key={alarm.alarm}>{alarm.alarm}</li>)
         }
       </ul>
     </div>

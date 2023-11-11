@@ -1,6 +1,7 @@
 import React from 'react'
 import Trend from '../Trend/Trend'
 import { Metrics } from '@/app/types/metrics'
+import { getValueDeltaSign } from '@/app/utils/helpers'
 
 const series: Metrics[] = [{
     name: "Line 1 Current",
@@ -21,6 +22,20 @@ const CurrentTrend = () => {
   return (
     <section id="current" className="h-screen my-4 flex flex-col justify-center align-center">
         <h2 className="text-xl my-2">Current</h2>
+        <div className="flex flex-row justify-center my-4 space-x-16">
+          <div className="flex flex-col">
+            <span>Line 1</span>
+            <span>{getValueDeltaSign(series[0].data[10], series[0].data[11])} {series[0].data[11]}</span>
+          </div>
+          <div className="flex flex-col">
+            <span>Line 2</span>
+            <span>{getValueDeltaSign(series[1].data[10], series[1].data[11])} {series[1].data[11]}</span>
+          </div>
+          <div className="flex flex-col">
+            <span>Line 3</span>
+            <span>{getValueDeltaSign(series[2].data[10], series[2].data[11])} {series[2].data[11]}</span>
+          </div>
+        </div>
         <Trend series={series} unit="A" threshold={50} xAxis={xAxis} yLabel='CURRENT (A)'/>
     </section>
   )
