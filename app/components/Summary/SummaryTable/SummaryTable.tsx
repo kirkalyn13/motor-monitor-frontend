@@ -1,3 +1,5 @@
+import { getStatusTextColor } from "@/app/utils/helpers";
+
 const dummyData = {
   line1Voltage: {value: 220, status: "normal"},
   line2Voltage: {value: 225, status: "normal"},
@@ -17,24 +19,11 @@ const SummaryTable = ({unitID}: SummaryTableProps) => {
   // TODO: REST API to return latest data and health status (boolean) for each:
   // {data: {line1Voltage: 230, ...}, status: {line1Voltage: true, ...}}
 
-  const renderTextColor = (status: string): string => {
-    switch (status) {
-      case "normal":
-        return ""
-      case "warning":
-        return "font-bold text-amber-500"
-      case "critical":
-        return "font-bold text-red-500 blink"
-      default:
-        return ""
-    }
-  }
-
   const renderDataRow = (data: any, label: string, unit: string) => {
       return (
         <tr>
           <td className="px-4 py-2">{label}</td>
-          <td className={`px-4 py-2 ${renderTextColor(data.status)}`}>
+          <td className={`px-4 py-2 ${getStatusTextColor(data.status, true)}`}>
           {data.value} {unit}
           </td>
         </tr>
