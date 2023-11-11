@@ -55,7 +55,7 @@ const Trend = ({series, unit, threshold, xAxis, yLabel}: TrendProps) => {
           yaxis:{
             title: {
               text: yLabel,
-              offsetX: -8,
+              offsetX: -4,
               style: {
                 color: chartStyles.colors.white,
                 fontSize: chartStyles.fonts.sizes.yLabel,
