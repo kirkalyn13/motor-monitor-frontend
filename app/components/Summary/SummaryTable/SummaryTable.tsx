@@ -1,11 +1,11 @@
 const dummyData = {
-  line1Voltage: 220,
-  line2Voltage: 225,
-  line3Voltage: 215,
-  line1Current: 10,
-  line2Current: 15,
-  line3Current: 20,
-  temperature: 75,
+  line1Voltage: {value: 220, status: "normal"},
+  line2Voltage: {value: 225, status: "normal"},
+  line3Voltage: {value: 215, status: "normal"},
+  line1Current: {value: 10, status: "normal"},
+  line2Current: {value: 15, status: "warning"},
+  line3Current: {value: 20, status: "critical"},
+  temperature: {value: 75, status: "critical"}
 }
 
 interface SummaryTableProps {
@@ -17,12 +17,25 @@ const SummaryTable = ({unitID}: SummaryTableProps) => {
   // TODO: REST API to return latest data and health status (boolean) for each:
   // {data: {line1Voltage: 230, ...}, status: {line1Voltage: true, ...}}
 
-  const renderDataRow = (data: number, label: string, unit: string) => {
+  const renderTextColor = (status: string): string => {
+    switch (status) {
+      case "normal":
+        return ""
+      case "warning":
+        return "font-bold text-amber-500"
+      case "critical":
+        return "font-bold text-red-500 blink"
+      default:
+        return ""
+    }
+  }
+
+  const renderDataRow = (data: any, label: string, unit: string) => {
       return (
         <tr>
           <td className="px-4 py-2">{label}</td>
-          <td className="px-4 py-2">
-          {data} {unit}
+          <td className={`px-4 py-2 ${renderTextColor(data.status)}`}>
+          {data.value} {unit}
           </td>
         </tr>
       )
@@ -41,8 +54,8 @@ const SummaryTable = ({unitID}: SummaryTableProps) => {
           {renderDataRow(dummyData.line2Voltage, "Line 2 Voltage", "V")}
           {renderDataRow(dummyData.line3Voltage, "Line 3 Voltage", "V")}
           {renderDataRow(dummyData.line1Current, "Line 1 Current", "A")}
-          {renderDataRow(dummyData.line1Current, "Line 2 Current", "A")}
-          {renderDataRow(dummyData.line1Current, "Line 3 Current", "A")}
+          {renderDataRow(dummyData.line2Current, "Line 2 Current", "A")}
+          {renderDataRow(dummyData.line3Current, "Line 3 Current", "A")}
           {renderDataRow(dummyData.temperature, "Temperature", "°C")}
       </tbody>
     </table>

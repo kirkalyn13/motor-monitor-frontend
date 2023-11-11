@@ -4,10 +4,15 @@ export type User = {
     lastName: string;
     company?: string;
     motors: Motor[];
-    alarms: string[];
+    alarms: Alarm[];
 }
 
 export type UserData = {
     id: string;
     user: User;
+}
+
+export type Alarm = {
+    alarm: string,
+    status: string
 }
