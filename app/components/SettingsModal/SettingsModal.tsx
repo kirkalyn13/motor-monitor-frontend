@@ -16,7 +16,7 @@ const SettingsModal = ({closeModal, userData }: SettingsModalProps) => {
     const [ motor, setMotor ] = useState<Motor>(userData?.user.motors[0])
     const [ updatedUser, setUpdatedUser ] = useState<User>(userData.user)
 
-    const needSetup = motor?.unitID === "" || !motor?.ratedVoltage || !motor?.ratedCurrent || !motor?.overheatThreshold
+    const needSetup = motor?.unitID === "" || !motor?.ratedVoltage || !motor?.ratedCurrent || !motor?.maxTemperature
 
     const handleSubmit = async (): Promise<void> => {
         try {
@@ -123,8 +123,8 @@ const SettingsModal = ({closeModal, userData }: SettingsModalProps) => {
                         text-sm text-black border rounded-lg 
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="number"
-                        value={motor?.overheatThreshold ?? null}
-                        onChange={(e) => setMotor({...motor, overheatThreshold: parseInt(e.target.value)})}
+                        value={motor?.maxTemperature ?? null}
+                        onChange={(e) => setMotor({...motor, maxTemperature: parseInt(e.target.value)})}
                         placeholder="Temperature in Celsius..." />
                 </div>
             <Divider />
