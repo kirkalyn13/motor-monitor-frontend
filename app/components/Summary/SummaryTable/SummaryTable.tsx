@@ -1,23 +1,25 @@
+"use client"
+import { useState, useEffect } from "react"
+import { getLatestMetrics } from "@/app/services/metricService";
 import { getStatusTextColor } from "@/app/utils/helpers";
 
-const dummyData = {
-  line1Voltage: {value: 220, status: "normal"},
-  line2Voltage: {value: 225, status: "normal"},
-  line3Voltage: {value: 215, status: "normal"},
-  line1Current: {value: 10, status: "normal"},
-  line2Current: {value: 15, status: "warning"},
-  line3Current: {value: 20, status: "critical"},
-  temperature: {value: 75, status: "critical"}
-}
-
 interface SummaryTableProps {
-  unitID: string | null;
+  unitID: string;
+  ratedVoltage: number;
+  ratedCurrent: number;
+  maxTemperature: number;
 }
 
-const SummaryTable = ({unitID}: SummaryTableProps) => {
-  // TODO: Add fetch for latest data for each metrics
-  // TODO: REST API to return latest data and health status (boolean) for each:
-  // {data: {line1Voltage: 230, ...}, status: {line1Voltage: true, ...}}
+const SummaryTable = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: SummaryTableProps) => {
+  const [refreshTrigger, setRefreshTrigger] = useState(false)
+  const [ summary, setSummary ] = useState<any>(null)
+
+  useEffect(() => {
+      const refresh = () => setRefreshTrigger(!refreshTrigger)
+      setTimeout(()=>{ refresh() }, 10000)
+      getLatestMetrics(unitID, ratedVoltage, ratedCurrent, maxTemperature)
+        .then((res) => setSummary(res))
+  },[maxTemperature, ratedCurrent, ratedVoltage, refreshTrigger, unitID])
 
   const renderDataRow = (data: any, label: string, unit: string) => {
       return (
@@ -38,15 +40,17 @@ const SummaryTable = ({unitID}: SummaryTableProps) => {
           <td className="px-4 py-2">Values</td>
         </tr>
       </thead>
+      {summary !== null ?  
       <tbody>
-          {renderDataRow(dummyData.line1Voltage, "Line 1 Voltage", "V")}
-          {renderDataRow(dummyData.line2Voltage, "Line 2 Voltage", "V")}
-          {renderDataRow(dummyData.line3Voltage, "Line 3 Voltage", "V")}
-          {renderDataRow(dummyData.line1Current, "Line 1 Current", "A")}
-          {renderDataRow(dummyData.line2Current, "Line 2 Current", "A")}
-          {renderDataRow(dummyData.line3Current, "Line 3 Current", "A")}
-          {renderDataRow(dummyData.temperature, "Temperature", "°C")}
+          {renderDataRow(summary.line1Voltage, "Line 1 Voltage", "V")}
+          {renderDataRow(summary.line2Voltage, "Line 2 Voltage", "V")}
+          {renderDataRow(summary.line3Voltage, "Line 3 Voltage", "V")}
+          {renderDataRow(summary.line1Current, "Line 1 Current", "A")}
+          {renderDataRow(summary.line2Current, "Line 2 Current", "A")}
+          {renderDataRow(summary.line3Current, "Line 3 Current", "A")}
+          {renderDataRow(summary.temperature, "Temperature", "°C")}
       </tbody>
+      : null}
     </table>
   )
 }
