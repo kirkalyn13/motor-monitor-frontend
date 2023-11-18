@@ -13,7 +13,7 @@ const DashboardLayout = ({children}: {children: React.ReactNode}) => {
 
     useEffect(() => {
         if (!user) router.push("/")
-        else setInitialLoad(false)
+        else setTimeout(() => setInitialLoad(false), 1000 ) //debounce
     },[router, user])
 
   return (

@@ -10,6 +10,7 @@ import Summary from "../components/Summary/Summary"
 import VoltageTrend from "../components/VoltageTrend/VoltageTrend"
 import CurrentTrend from "../components/CurrentTrend/CurrentTrend"
 import TemperatureTrend from "../components/TemperatureTrend/TemperatureTrend"
+import SetupNotice from "../components/SetupNotice/SetupNotice"
 
 const Dashboard = () => {
     const [ userData, setUserData ] = useState<UserData>()
@@ -23,6 +24,21 @@ const Dashboard = () => {
                     setUserData(res)
                 }).catch((err) => console.error(err))
     }, [ user, showSettingsModal ])
+
+    const renderDashboardWithSetup = () => (
+        userData?.user.motors.length !== 0 ?
+        <>
+            <Summary userData={userData!}/>
+            <Divider />
+            <VoltageTrend />
+            <Divider />
+            <CurrentTrend />
+            <Divider />
+            <TemperatureTrend threshold={userData?.user.motors[0] ? userData?.user.motors[0].maxTemperature : 0}/>
+            <Divider /> 
+        </>
+        : <SetupNotice />
+    )
 
     return (
         <div className="pt-32 flex flex-col text-center space-y-2 bg-slate-800 text-white">
@@ -41,14 +57,7 @@ const Dashboard = () => {
                 <span className="text-md text-left ms-8 md:ms-16">{userData?.user.company ?? null}</span>
             </div>
             <Divider />
-            <Summary userData={userData!}/>
-            <Divider />
-            <VoltageTrend />
-            <Divider />
-            <CurrentTrend />
-            <Divider />
-            <TemperatureTrend threshold={userData?.user.motors[0] ? userData?.user.motors[0].maxTemperature : 0}/>
-            <Divider />
+            {!userData ? <section className="h-screen" /> : renderDashboardWithSetup()}  
         </div>
     )
 }
