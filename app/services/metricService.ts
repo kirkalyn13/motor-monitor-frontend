@@ -59,3 +59,21 @@ export const getTemperatureTrend = async (id: string): Promise<any> =>  {
         console.error(err)
     }
 }
+
+export const getMetricsSummary = async (id: string, ratedVoltage: number, ratedCurrent: number, maxTemperature: number): Promise<any> => {
+    try {
+        const queryParams = {
+            ratedVoltage,
+            ratedCurrent,
+            maxTemperature
+        }
+        const response = await fetch(buildUri(getEndpoint(id, "/summary"), queryParams), {
+            next: {
+                revalidate: 60
+            }
+        })
+        return await response.json()
+    } catch(err) {
+        console.error(err)
+    }
+}

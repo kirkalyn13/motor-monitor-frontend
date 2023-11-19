@@ -1,14 +1,29 @@
 'use client'
+import { useState, useEffect } from "react"
+import { MetricsSummarySeries } from '@/app/types/metrics';
 import { chartStyles } from '@/app/utils/chartStyles'
+import { METRICS_GRANULARITY, DEFAULT_SUMMARY_SERIES } from '@/app/utils/constants';
 import dynamic from 'next/dynamic'
+import { getMetricsSummary } from "@/app/services/metricService";
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-const series: number[] = [4,1,2]
+interface SummaryPieProps {
+  unitID: string;
+  ratedVoltage: number;
+  ratedCurrent: number;
+  maxTemperature: number;
+}
 
-const SummaryPie = () => {
-    // TODO: Add fetch for latest data for each metrics
-    // TODO: REST API to array of metrics summary
-    // [4,1,2]  
+const SummaryPie = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: SummaryPieProps) => {
+    const [refreshTrigger, setRefreshTrigger] = useState(false)
+    const [ summary, setSummary ] = useState<MetricsSummarySeries>(DEFAULT_SUMMARY_SERIES)
+
+    useEffect(() => {
+        const refresh = () => setRefreshTrigger(!refreshTrigger)
+        setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
+        getMetricsSummary(unitID, ratedVoltage, ratedCurrent, maxTemperature)
+          .then((res) => setSummary(res))
+    },[maxTemperature, ratedCurrent, ratedVoltage, refreshTrigger, unitID]) 
 
     const options: ApexCharts.ApexOptions = {
         colors: [chartStyles.colors.blue, chartStyles.colors.amber, chartStyles.colors.red],
@@ -63,11 +78,11 @@ const SummaryPie = () => {
 
     return (
         <div className="w-screen md:w-1/3 text-center">
-            <h3 className="w-full px-4 py-2">Summary</h3>
+            <h3 className="w-full px-4 py-2">Metrics Summary</h3>
             <Chart 
                 className="flex justify-center align-center z-1"
                 options={options} 
-                series={series} 
+                series={summary.summary} 
                 type="donut" 
                 width="350"
                 height="350" />

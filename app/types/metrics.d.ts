@@ -19,3 +19,7 @@ export type MetricSummary = {
     status: string;
     value: number;
 }
+
+export type MetricsSummarySeries = {
+    summary: numnber[];
+}

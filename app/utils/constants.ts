@@ -1,4 +1,4 @@
-import { Metrics } from '@/app/types/metrics'
+import { Metrics, MetricsSummarySeries } from '@/app/types/metrics'
 
 // Duration of metrics fetching
 export const METRICS_GRANULARITY = 60000 
@@ -36,3 +36,7 @@ export const DEFAULT_SERIES: Metrics[] = [{
 
 export const DEFAULT_TIMESTAMPS: string[] = 
     ["0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00"]
+
+export const DEFAULT_SUMMARY_SERIES: MetricsSummarySeries = {
+    summary: [7, 0, 0]
+}
