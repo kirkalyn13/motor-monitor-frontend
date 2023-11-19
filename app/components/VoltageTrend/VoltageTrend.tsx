@@ -1,24 +1,30 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import Trend from '../Trend/Trend'
 import { Metrics } from '@/app/types/metrics'
 import { getValueDeltaSign } from '@/app/utils/helpers'
+import { getVoltageTrend } from '@/app/services/metricService'
+import { DEFAULT_SERIES, DEFAULT_TIMESTAMPS, METRICS_GRANULARITY } from '@/app/utils/constants'
 
-const series: Metrics[] = [{
-    name: "Line 1 Voltage",
-    data: [230, 229, 231, 230, 230, 228, 230, 231, 231, 230, 240, 321]
-},
-{
-    name: 'Line 2 Voltage',
-    data: [232, 232, 228, 229, 229, 228, 234, 245, 256, 260, 287, 0]
-},
-{
-    name: "Line 3 Voltage",
-    data: [231, 229, 232, 231, 231, 225, 125, 54, 12, 23, 2, 3]
-}]
+interface VoltageTrendProps {
+  unitID: string
+}
 
-const xAxis = ["0:00","1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00"]
+const VoltageTrend = ({unitID}: VoltageTrendProps) => {
+  const [refreshTrigger, setRefreshTrigger] = useState(false)
+  const [ series, setSeries ] = useState<Metrics[]>(DEFAULT_SERIES)
+  const [ timestamps, setTimestamps ] = useState<string[]>(DEFAULT_TIMESTAMPS)
 
-const VoltageTrend = () => {
+  useEffect(() => {
+      const refresh = () => setRefreshTrigger(!refreshTrigger)
+      setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
+      getVoltageTrend(unitID)
+        .then((res) => {
+          console.log(res)
+          setSeries(res.trend)
+          setTimestamps(res.timestamps)
+        })
+  },[ refreshTrigger,])
+
   return (
     <section id="voltage" className="h-screen my-4 flex flex-col justify-center align-center">
         <h2 className="text-xl my-2">Voltage</h2>
@@ -36,7 +42,7 @@ const VoltageTrend = () => {
             <span>{getValueDeltaSign(series[2].data[10], series[2].data[11])} {series[2].data[11]}</span>
           </div>
         </div>
-        <Trend series={series} unit="V" threshold={250} xAxis={xAxis} yLabel='VOLTAGE (V)'/>
+        <Trend series={series} unit="V" threshold={250} xAxis={timestamps} yLabel='VOLTAGE (V)'/>
     </section>
   )
 }

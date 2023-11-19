@@ -30,7 +30,7 @@ const Dashboard = () => {
         <>
             <Summary userData={userData!}/>
             <Divider />
-            <VoltageTrend />
+            <VoltageTrend unitID={userData!.user.motors[0].unitID} />
             <Divider />
             <CurrentTrend />
             <Divider />

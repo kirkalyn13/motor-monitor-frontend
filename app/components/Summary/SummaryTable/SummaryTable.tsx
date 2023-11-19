@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import { getLatestMetrics } from "@/app/services/metricService";
 import { getStatusTextColor } from "@/app/utils/helpers";
+import { METRICS_GRANULARITY } from "@/app/utils/constants";
 
 interface SummaryTableProps {
   unitID: string;
@@ -16,7 +17,7 @@ const SummaryTable = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: Summ
 
   useEffect(() => {
       const refresh = () => setRefreshTrigger(!refreshTrigger)
-      setTimeout(()=>{ refresh() }, 10000)
+      setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
       getLatestMetrics(unitID, ratedVoltage, ratedCurrent, maxTemperature)
         .then((res) => setSummary(res))
   },[maxTemperature, ratedCurrent, ratedVoltage, refreshTrigger, unitID])
