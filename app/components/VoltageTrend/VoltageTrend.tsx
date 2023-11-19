@@ -20,7 +20,6 @@ const VoltageTrend = ({unitID, threshold = 0}: VoltageTrendProps) => {
       setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
       getVoltageTrend(unitID)
         .then((res) => {
-          console.log(res)
           setSeries(res.trend)
           setTimestamps(res.timestamps)
         })

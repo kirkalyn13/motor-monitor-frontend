@@ -20,7 +20,6 @@ const TemperatureTrend = ({unitID, threshold = 0}: TemperatureTrendProps) => {
       setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
       getTemperatureTrend(unitID)
         .then((res) => {
-          console.log(res)
           setSeries(res.trend)
           setTimestamps(res.timestamps)
         })
