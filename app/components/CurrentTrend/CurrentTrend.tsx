@@ -20,8 +20,8 @@ const CurrentTrend = ({unitID, threshold = 0}: CurrentTrendProps) => {
       setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
       getCurrentTrend(unitID)
         .then((res) => {
-          setSeries(res.trend)
-          setTimestamps(res.timestamps)
+          setSeries(res.trend ?? DEFAULT_SERIES)
+          setTimestamps(res.timestamps ?? DEFAULT_SERIES)
         })
   },[ refreshTrigger,])
 

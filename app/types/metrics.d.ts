@@ -21,5 +21,5 @@ export type MetricSummary = {
 }
 
 export type MetricsSummarySeries = {
-    summary: numnber[];
+    summary: number[];
 }
