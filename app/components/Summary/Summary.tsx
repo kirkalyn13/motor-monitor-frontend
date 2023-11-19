@@ -11,13 +11,13 @@ interface SummaryProps {
 const Summary = ({userData}: SummaryProps) => {
   return (
     <section className="w-screen flex flex-col md:flex-row justify-center align-center py-8 space-y-8 md:space-y-0">
-        <SummaryTable 
+        <SummaryPie 
           unitID={userData?.user.motors[0] ? userData?.user.motors[0].unitID : null} 
           ratedVoltage={userData?.user.motors[0] ? userData?.user.motors[0].ratedVoltage : null}
           ratedCurrent={userData?.user.motors[0] ? userData?.user.motors[0].ratedCurrent : null}
           maxTemperature={userData?.user.motors[0] ? userData?.user.motors[0].maxTemperature : null}
           />
-        <SummaryPie 
+        <SummaryTable 
           unitID={userData?.user.motors[0] ? userData?.user.motors[0].unitID : null} 
           ratedVoltage={userData?.user.motors[0] ? userData?.user.motors[0].ratedVoltage : null}
           ratedCurrent={userData?.user.motors[0] ? userData?.user.motors[0].ratedCurrent : null}
