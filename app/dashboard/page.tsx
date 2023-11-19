@@ -34,7 +34,9 @@ const Dashboard = () => {
             <Divider />
             <CurrentTrend unitID={userData!.user.motors[0].unitID}/>
             <Divider />
-            <TemperatureTrend threshold={userData?.user.motors[0] ? userData?.user.motors[0].maxTemperature : 0}/>
+            <TemperatureTrend 
+                unitID={userData!.user.motors[0].unitID}
+                threshold={userData?.user.motors[0] ? userData?.user.motors[0].maxTemperature : 0}/>
             <Divider /> 
         </>
         : <SetupNotice />
