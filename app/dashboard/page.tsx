@@ -32,7 +32,7 @@ const Dashboard = () => {
             <Divider />
             <VoltageTrend unitID={userData!.user.motors[0].unitID} />
             <Divider />
-            <CurrentTrend />
+            <CurrentTrend unitID={userData!.user.motors[0].unitID}/>
             <Divider />
             <TemperatureTrend threshold={userData?.user.motors[0] ? userData?.user.motors[0].maxTemperature : 0}/>
             <Divider /> 

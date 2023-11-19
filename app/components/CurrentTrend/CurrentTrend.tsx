@@ -1,24 +1,30 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import Trend from '../Trend/Trend'
 import { Metrics } from '@/app/types/metrics'
 import { getValueDeltaSign } from '@/app/utils/helpers'
+import { getCurrentTrend } from '@/app/services/metricService'
+import { DEFAULT_SERIES, DEFAULT_TIMESTAMPS, METRICS_GRANULARITY } from '@/app/utils/constants'
 
-const series: Metrics[] = [{
-    name: "Line 1 Current",
-    data: [10,11,10,10,11,10,10,11,10,12,9,97]
-},
-{
-  name: 'Line 2 Current',
-  data: [13,12,11,12,9,10,9,23,50,45,64,0]
-},
-{
-  name: "Line 3 Current",
-  data: [10,9,10,10,9,10,5,2,1,0,0,0]
-}]
+interface CurrentTrendProps {
+  unitID: string
+}
 
-const xAxis = ["0:00","1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00"]
+const CurrentTrend = ({unitID}: CurrentTrendProps) => {
+  const [refreshTrigger, setRefreshTrigger] = useState(false)
+  const [ series, setSeries ] = useState<Metrics[]>(DEFAULT_SERIES)
+  const [ timestamps, setTimestamps ] = useState<string[]>(DEFAULT_TIMESTAMPS)
 
-const CurrentTrend = () => {
+  useEffect(() => {
+      const refresh = () => setRefreshTrigger(!refreshTrigger)
+      setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
+      getCurrentTrend(unitID)
+        .then((res) => {
+          console.log(res)
+          setSeries(res.trend)
+          setTimestamps(res.timestamps)
+        })
+  },[ refreshTrigger,])
+
   return (
     <section id="current" className="h-screen my-4 flex flex-col justify-center align-center">
         <h2 className="text-xl my-2">Current</h2>
@@ -36,7 +42,7 @@ const CurrentTrend = () => {
             <span>{getValueDeltaSign(series[2].data[10], series[2].data[11])} {series[2].data[11]}</span>
           </div>
         </div>
-        <Trend series={series} unit="A" threshold={50} xAxis={xAxis} yLabel='CURRENT (A)'/>
+        <Trend series={series} unit="A" threshold={50} xAxis={timestamps} yLabel='CURRENT (A)'/>
     </section>
   )
 }
