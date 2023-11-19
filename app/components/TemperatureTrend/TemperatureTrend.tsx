@@ -10,7 +10,7 @@ interface TemperatureTrendProps {
     threshold?: number
 }
 
-const TemperatureTrend = ({unitID, threshold = 50}: TemperatureTrendProps) => {
+const TemperatureTrend = ({unitID, threshold = 0}: TemperatureTrendProps) => {
   const [refreshTrigger, setRefreshTrigger] = useState(false)
   const [ series, setSeries ] = useState<Metrics[]>(DEFAULT_SERIES)
   const [ timestamps, setTimestamps ] = useState<string[]>(DEFAULT_TIMESTAMPS)

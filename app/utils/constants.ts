@@ -1,7 +1,7 @@
 import { Metrics } from '@/app/types/metrics'
 
 // Duration of metrics fetching
-export const METRICS_GRANULARITY = 10000 
+export const METRICS_GRANULARITY = 60000 
 
 // Default placeholder values:
 export const DEFAULT_SERIES: Metrics[] = [{

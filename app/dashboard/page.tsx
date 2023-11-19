@@ -30,9 +30,13 @@ const Dashboard = () => {
         <>
             <Summary userData={userData!}/>
             <Divider />
-            <VoltageTrend unitID={userData!.user.motors[0].unitID} />
+            <VoltageTrend 
+                unitID={userData!.user.motors[0].unitID}
+                threshold={userData?.user.motors[0] ? userData?.user.motors[0].ratedVoltage : 0}/>
             <Divider />
-            <CurrentTrend unitID={userData!.user.motors[0].unitID}/>
+            <CurrentTrend 
+                unitID={userData!.user.motors[0].unitID}
+                threshold={userData?.user.motors[0] ? userData?.user.motors[0].ratedCurrent : 0}/>
             <Divider />
             <TemperatureTrend 
                 unitID={userData!.user.motors[0].unitID}

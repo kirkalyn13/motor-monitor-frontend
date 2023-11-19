@@ -7,9 +7,10 @@ import { DEFAULT_SERIES, DEFAULT_TIMESTAMPS, METRICS_GRANULARITY } from '@/app/u
 
 interface VoltageTrendProps {
   unitID: string
+  threshold?: number
 }
 
-const VoltageTrend = ({unitID}: VoltageTrendProps) => {
+const VoltageTrend = ({unitID, threshold = 0}: VoltageTrendProps) => {
   const [refreshTrigger, setRefreshTrigger] = useState(false)
   const [ series, setSeries ] = useState<Metrics[]>(DEFAULT_SERIES)
   const [ timestamps, setTimestamps ] = useState<string[]>(DEFAULT_TIMESTAMPS)
@@ -42,7 +43,7 @@ const VoltageTrend = ({unitID}: VoltageTrendProps) => {
             <span>{getValueDeltaSign(series[2].data[10], series[2].data[11])} {series[2].data[11]}</span>
           </div>
         </div>
-        <Trend series={series} unit="V" threshold={250} xAxis={timestamps} yLabel='VOLTAGE (V)'/>
+        <Trend series={series} unit="V" threshold={threshold} xAxis={timestamps} yLabel='VOLTAGE (V)'/>
     </section>
   )
 }

@@ -7,9 +7,10 @@ import { DEFAULT_SERIES, DEFAULT_TIMESTAMPS, METRICS_GRANULARITY } from '@/app/u
 
 interface CurrentTrendProps {
   unitID: string
+  threshold?: number
 }
 
-const CurrentTrend = ({unitID}: CurrentTrendProps) => {
+const CurrentTrend = ({unitID, threshold = 0}: CurrentTrendProps) => {
   const [refreshTrigger, setRefreshTrigger] = useState(false)
   const [ series, setSeries ] = useState<Metrics[]>(DEFAULT_SERIES)
   const [ timestamps, setTimestamps ] = useState<string[]>(DEFAULT_TIMESTAMPS)
@@ -42,7 +43,7 @@ const CurrentTrend = ({unitID}: CurrentTrendProps) => {
             <span>{getValueDeltaSign(series[2].data[10], series[2].data[11])} {series[2].data[11]}</span>
           </div>
         </div>
-        <Trend series={series} unit="A" threshold={50} xAxis={timestamps} yLabel='CURRENT (A)'/>
+        <Trend series={series} unit="A" threshold={threshold} xAxis={timestamps} yLabel='CURRENT (A)'/>
     </section>
   )
 }

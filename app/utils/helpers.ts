@@ -33,4 +33,7 @@ export const getStatusTextColor = (status: string, isBlink: boolean): string => 
     }
   }
 
-export const getValueDeltaSign = (prev: number, curr: number) => prev > curr ? "↓" : "↑"
+export const getValueDeltaSign = (prev: number, curr: number) => {
+  if (prev === curr) return "~"
+  return prev > curr ? "↓" : "↑"
+}
