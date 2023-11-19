@@ -1,1 +1,1 @@
-export const URL = process.env.NODE_ENV !== "development" ? process.env.NEXT_PUBLIC_API_URL : "http://localhost:5000"
+export const URL = process.env.NODE_ENV !== "development" ? "https://motor-monitor-backend.onrender.com" : "http://localhost:5000"
