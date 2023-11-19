@@ -82,7 +82,7 @@ const SummaryPie = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: Summar
             <Chart 
                 className="flex justify-center align-center z-1"
                 options={options} 
-                series={summary.summary} 
+                series={summary?.summary ?? DEFAULT_SUMMARY_SERIES} 
                 type="donut" 
                 width="350"
                 height="350" />
