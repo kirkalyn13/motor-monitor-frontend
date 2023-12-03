@@ -23,3 +23,13 @@ export type MetricSummary = {
 export type MetricsSummarySeries = {
     summary: number[];
 }
+
+export type Alarm = {
+    alarm: string;
+    status: string;
+}
+
+export type Threshold = {
+    label: string;
+    value: number;
+}

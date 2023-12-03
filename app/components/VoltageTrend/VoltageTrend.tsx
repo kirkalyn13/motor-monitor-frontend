@@ -42,7 +42,18 @@ const VoltageTrend = ({unitID, threshold = 0}: VoltageTrendProps) => {
             <span>{getValueDeltaSign(series[2].data[10], series[2].data[11])} {series[2].data[11]}</span>
           </div>
         </div>
-        <Trend series={series} unit="V" threshold={threshold} xAxis={timestamps} yLabel='VOLTAGE (V)'/>
+        <Trend 
+          series={series} 
+          unit="V" 
+          xAxis={timestamps} 
+          yLabel='VOLTAGE (V)'
+          thresholds={[
+            { label: "critical", value: threshold*0.85 },
+            { label: "critical", value: threshold*1.15 },
+            { label: "warning", value: threshold*0.9 },
+            { label: "warning", value: threshold*1.1 }
+          ]} 
+          />
     </section>
   )
 }
