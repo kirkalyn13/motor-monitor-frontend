@@ -27,7 +27,7 @@ export const getStatusTextColor = (status: string, isBlink: boolean): string => 
       case "warning":
         return "font-bold text-amber-500"
       case "critical":
-        return `font-bold text-red-500 ${isBlink ? "blink" : "null"}`
+        return `font-bold text-red-500 ${isBlink ? "blink" : ""}`
       default:
         return ""
     }

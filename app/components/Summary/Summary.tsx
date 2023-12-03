@@ -23,7 +23,12 @@ const Summary = ({userData}: SummaryProps) => {
           ratedCurrent={userData?.user.motors[0] ? userData?.user.motors[0].ratedCurrent : null}
           maxTemperature={userData?.user.motors[0] ? userData?.user.motors[0].maxTemperature : null}
           />
-        <Alarms alarms={userData?.user.alarms}/>
+        <Alarms
+          unitID={userData?.user.motors[0] ? userData?.user.motors[0].unitID : null} 
+          ratedVoltage={userData?.user.motors[0] ? userData?.user.motors[0].ratedVoltage : null}
+          ratedCurrent={userData?.user.motors[0] ? userData?.user.motors[0].ratedCurrent : null}
+          maxTemperature={userData?.user.motors[0] ? userData?.user.motors[0].maxTemperature : null}
+          />
     </section>
   )
 }

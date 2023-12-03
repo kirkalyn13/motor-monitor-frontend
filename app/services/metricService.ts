@@ -77,3 +77,21 @@ export const getMetricsSummary = async (id: string, ratedVoltage: number, ratedC
         console.error(err)
     }
 }
+
+export const getAlarms = async (id: string, ratedVoltage: number, ratedCurrent: number, maxTemperature: number): Promise<any> => {
+    try {
+        const queryParams = {
+            ratedVoltage,
+            ratedCurrent,
+            maxTemperature
+        }
+        const response = await fetch(buildUri(getEndpoint(id, "/alarms"), queryParams), {
+            next: {
+                revalidate: 60
+            }
+        })
+        return await response.json()
+    } catch(err) {
+        console.error(err)
+    }
+}
