@@ -1,5 +1,3 @@
-export type Status = "normal" | "warning" | "critical"
-
 export type Metrics = {
     name: string;
     data: number[];
@@ -18,7 +16,7 @@ export type LatestMetricsSummary ={
 }
 
 export type MetricSummary = {
-    status: Status;
+    status: string;
     value: number;
 }
 
@@ -28,5 +26,5 @@ export type MetricsSummarySeries = {
 
 export type Alarm = {
     alarm: string;
-    status: Status;
+    status: string;
 }
