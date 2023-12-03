@@ -10,7 +10,8 @@ export const chartStyles = {
     },
     fonts: {
         sizes: {
-            yLabel: "12px"
+            yLabel: "12px",
+            xAxis: "10px"
         } 
     },
     sizes: {

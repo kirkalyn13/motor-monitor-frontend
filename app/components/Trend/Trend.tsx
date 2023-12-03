@@ -65,11 +65,15 @@ const Trend = ({series, unit, thresholds, xAxis, yLabel}: TrendProps) => {
             }
           },
           xaxis: {
-            // type: 'datetime',
             categories: xAxis,
+            tickAmount: 6,
             labels: {
+              hideOverlappingLabels: true,
+              offsetY: -4,
+              rotate: 270,
               style: {
-                colors: chartStyles.colors.white
+                colors: chartStyles.colors.white,
+                fontSize: chartStyles.fonts.sizes.xAxis
               }
             }
           },
