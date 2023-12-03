@@ -1,5 +1,5 @@
 'use client'
-import { Metrics } from '@/app/types/metrics'
+import { Metrics, Threshold } from '@/app/types/metrics'
 import { chartStyles } from '@/app/utils/chartStyles'
 import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
@@ -7,44 +7,33 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 interface TrendProps {
     series: Metrics[],
     unit: string,
-    threshold: number,
+    thresholds: Threshold[],
     xAxis: string[],
     yLabel: string
 }
 
-const Trend = ({series, unit, threshold, xAxis, yLabel}: TrendProps) => {
+const getThresholdStyle = (label: string): string => label === "warning" ? chartStyles.colors.amber : chartStyles.colors.red
+const getThresholdLabel = (label: string): string => label === "warning" ? "Warning" : "Critical"
+
+const Trend = ({series, unit, thresholds, xAxis, yLabel}: TrendProps) => {
     const options: ApexCharts.ApexOptions = {
         chart: {
             height: 350,
             type: 'area',
           },
           annotations: {
-            yaxis: [
-              {
-                y: threshold,
-                borderColor: chartStyles.colors.red,
-                label: {
-                  borderColor: chartStyles.colors.red,
-                  style: {
-                    color: chartStyles.colors.white,
-                    background: chartStyles.colors.red
-                  },
-                  text: 'Treshold'
-                }
-              },
-              {
-                y: threshold*0.9,
-                borderColor: chartStyles.colors.amber,
-                label: {
-                  borderColor: chartStyles.colors.amber,
-                  style: {
-                    color: chartStyles.colors.white,
-                    background: chartStyles.colors.amber
-                  },
-                  text: 'Warning'
-                }
-              }
-            ]
+            yaxis: thresholds.map((threshold: Threshold):YAxisAnnotations => ({
+                  y: threshold.value,
+                  borderColor: getThresholdStyle(threshold.label),
+                  label: {
+                    borderColor: getThresholdStyle(threshold.label),
+                    style: {
+                      color: chartStyles.colors.white,
+                      background: getThresholdStyle(threshold.label)
+                    },
+                    text: getThresholdLabel(threshold.label)
+                  }
+            }))
           },
           dataLabels: {
             enabled: false

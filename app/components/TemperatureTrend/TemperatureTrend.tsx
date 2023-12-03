@@ -34,7 +34,16 @@ const TemperatureTrend = ({unitID, threshold = 0}: TemperatureTrendProps) => {
             <span>{getValueDeltaSign(series[0].data[10], series[0].data[11])} {series[0].data[11]}</span>
           </div>
         </div>
-        <Trend series={series} unit="°C" threshold={threshold} xAxis={timestamps} yLabel='TEMPERATURE (°C)'/>
+        <Trend 
+          series={series} 
+          unit="°C"
+          xAxis={timestamps}
+          yLabel='TEMPERATURE (°C)'
+          thresholds={[
+            { label: "critical", value: threshold },
+            { label: "warning", value: threshold*0.9 }
+          ]}
+            />
     </section>
   )
 }

@@ -42,7 +42,18 @@ const CurrentTrend = ({unitID, threshold = 0}: CurrentTrendProps) => {
             <span>{getValueDeltaSign(series[2].data[10], series[2].data[11])} {series[2].data[11]}</span>
           </div>
         </div>
-        <Trend series={series} unit="A" threshold={threshold} xAxis={timestamps} yLabel='CURRENT (A)'/>
+        <Trend 
+          series={series}
+          unit="A"
+          xAxis={timestamps}
+          yLabel='CURRENT (A)'
+          thresholds={[
+            { label: "critical", value: threshold*4 },
+            { label: "critical", value: threshold*1.5 },
+            { label: "warning", value: threshold*3.9 },
+            { label: "warning", value: threshold*1.25 }
+          ]}
+          />
     </section>
   )
 }
