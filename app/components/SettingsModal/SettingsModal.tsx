@@ -31,7 +31,6 @@ const SettingsModal = ({closeModal, userData }: SettingsModalProps) => {
                     alarms: updatedUser.alarms,
                 }
             }
-            debugger
             await editUserData(editedUser)
             closeModal()
             alert("User Update Successful!")
