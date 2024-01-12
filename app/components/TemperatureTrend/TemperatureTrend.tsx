@@ -16,17 +16,17 @@ const TemperatureTrend = ({unitID, threshold = 0}: TemperatureTrendProps) => {
   const [ series, setSeries ] = useState<Metrics[]>(DEFAULT_SERIES)
   const [ timestamps, setTimestamps ] = useState<string[]>(DEFAULT_TIMESTAMPS)
   const searchParams = useSearchParams()
+  const period = searchParams.get("period") ?? "15"
 
   useEffect(() => {
       const refresh = () => setRefreshTrigger(!refreshTrigger)
-      const period = searchParams.get("period") ?? "15"
       setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
       getTemperatureTrend(unitID, period)
         .then((res) => {
           setSeries(res.trend ?? DEFAULT_SERIES)
           setTimestamps(res.timestamps ?? DEFAULT_SERIES)
         })
-  },[ refreshTrigger,])
+  },[period, refreshTrigger, unitID])
 
   return (
     <section id="temperature" className="h-screen my-4 flex flex-col justify-center align-center">
