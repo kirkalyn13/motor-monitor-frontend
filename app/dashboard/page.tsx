@@ -65,7 +65,7 @@ const Dashboard = () => {
                     </div>
                     <span className="text-md text-left ms-8 md:ms-16">{userData?.user.company ?? null}</span>
                 </div>
-                <Extract />
+                <Extract unitID={userData?.user.motors[0].unitID} />
             </div>
             <Divider />
             {!userData ? <section className="h-screen" /> : renderDashboardWithSetup()}  
