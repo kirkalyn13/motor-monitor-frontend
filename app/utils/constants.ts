@@ -23,19 +23,19 @@ export const DEFAULT_LATEST_METRICS = {
 
 export const DEFAULT_SERIES: Metrics[] = [{
         name: "",
-        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
     {
         name: "",
-        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
     {
         name: "",
-        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }]
 
 export const DEFAULT_TIMESTAMPS: string[] = 
-    ["0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00"]
+    ["0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00", "0:00"]
 
 export const DEFAULT_SUMMARY_SERIES: MetricsSummarySeries = {
     summary: [7, 0, 0]

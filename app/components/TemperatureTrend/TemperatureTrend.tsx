@@ -4,6 +4,7 @@ import { Metrics } from '@/app/types/metrics'
 import { getValueDeltaSign } from '@/app/utils/helpers'
 import { DEFAULT_SERIES, DEFAULT_TIMESTAMPS, METRICS_GRANULARITY } from '@/app/utils/constants'
 import { getTemperatureTrend } from '@/app/services/metricService'
+import { useSearchParams } from 'next/navigation'
 
 interface TemperatureTrendProps {
     unitID: string
@@ -14,16 +15,18 @@ const TemperatureTrend = ({unitID, threshold = 0}: TemperatureTrendProps) => {
   const [refreshTrigger, setRefreshTrigger] = useState(false)
   const [ series, setSeries ] = useState<Metrics[]>(DEFAULT_SERIES)
   const [ timestamps, setTimestamps ] = useState<string[]>(DEFAULT_TIMESTAMPS)
+  const searchParams = useSearchParams()
+  const period = searchParams.get("period") ?? "15"
 
   useEffect(() => {
       const refresh = () => setRefreshTrigger(!refreshTrigger)
       setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
-      getTemperatureTrend(unitID)
+      getTemperatureTrend(unitID, period)
         .then((res) => {
           setSeries(res.trend ?? DEFAULT_SERIES)
           setTimestamps(res.timestamps ?? DEFAULT_SERIES)
         })
-  },[ refreshTrigger,])
+  },[period, refreshTrigger, unitID])
 
   return (
     <section id="temperature" className="h-screen my-4 flex flex-col justify-center align-center">
