@@ -1,11 +1,7 @@
 import {useState, useEffect, ChangeEvent } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-interface PeriodProps {
- 
-}
-
-const Period: React.FC<PeriodProps> = () => {
+const TrendPeriod: React.FC = () => {
     const router = useRouter();
     const searchParams = useSearchParams();  
     const [ period, setPeriod ] = useState("15")
@@ -16,7 +12,7 @@ const Period: React.FC<PeriodProps> = () => {
 
   return (
     <>
-        <span className="flex flex-col justify-center align-center">Period:</span>
+        <span className="flex flex-col justify-center align-center">Trend Period:</span>
         <div className="flex flex-col justify-center align-center">
             <select
                 value={searchParams.get("period") ?? ""}
@@ -32,4 +28,4 @@ const Period: React.FC<PeriodProps> = () => {
   );
 };
 
-export default Period;
+export default TrendPeriod;
