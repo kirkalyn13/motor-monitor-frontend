@@ -98,3 +98,17 @@ export const getAlarms = async (id: string, ratedVoltage: number, ratedCurrent: 
         console.error(err)
     }
 }
+
+export const downloadMetrics = async (id: string, period: string = "15"): Promise<any> =>  {
+    try {
+        const queryParams = { period }
+        const response = await fetch(buildUri(getEndpoint(id, "/download"), queryParams), {
+            next: {
+                revalidate: 60
+            }
+        })
+        return await response.json()
+    } catch (err) {
+        console.error(err)
+    }
+}
