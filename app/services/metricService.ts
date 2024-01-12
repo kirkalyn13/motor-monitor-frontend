@@ -21,9 +21,10 @@ export const getLatestMetrics = async (id: string, ratedVoltage: number, ratedCu
     }
 }
 
-export const getVoltageTrend = async (id: string): Promise<any> =>  {
+export const getVoltageTrend = async (id: string, period: string = "15"): Promise<any> =>  {
     try {
-        const response = await fetch(buildUri(getEndpoint(id, "/voltage")), {
+        const queryParams = { period }
+        const response = await fetch(buildUri(getEndpoint(id, "/voltage"), queryParams), {
             next: {
                 revalidate: 60
             }
@@ -34,9 +35,10 @@ export const getVoltageTrend = async (id: string): Promise<any> =>  {
     }
 }
 
-export const getCurrentTrend = async (id: string): Promise<any> =>  {
+export const getCurrentTrend = async (id: string, period: string = "15"): Promise<any> =>  {
     try {
-        const response = await fetch(buildUri(getEndpoint(id, "/current")), {
+        const queryParams = { period }
+        const response = await fetch(buildUri(getEndpoint(id, "/current"), queryParams), {
             next: {
                 revalidate: 60
             }
@@ -47,9 +49,10 @@ export const getCurrentTrend = async (id: string): Promise<any> =>  {
     }
 }
 
-export const getTemperatureTrend = async (id: string): Promise<any> =>  {
+export const getTemperatureTrend = async (id: string, period: string = "15"): Promise<any> =>  {
     try {
-        const response = await fetch(buildUri(getEndpoint(id, "/temperature")), {
+        const queryParams = { period }
+        const response = await fetch(buildUri(getEndpoint(id, "/temperature"), queryParams), {
             next: {
                 revalidate: 60
             }

@@ -1,22 +1,26 @@
-import React, { ChangeEvent } from 'react';
+import {useState, useEffect, ChangeEvent } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 interface PeriodProps {
  
 }
 
 const Period: React.FC<PeriodProps> = () => {
-  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = parseInt(event.target.value, 10);
-    // onChange(selectedValue);
-  };
+    const router = useRouter();
+    const searchParams = useSearchParams();  
+    const [ period, setPeriod ] = useState("15")
+    
+    useEffect(() => {
+        router.replace(`/dashboard/?period=${period}`)
+    },[period, router])
 
   return (
     <>
         <span className="flex flex-col justify-center align-center">Period:</span>
         <div className="flex flex-col justify-center align-center">
             <select
-                // value={value}
-                onChange={(e: ChangeEvent<HTMLSelectElement>) => handleSelectChange(e)}
+                value={searchParams.get("period") ?? ""}
+                onChange={(e: ChangeEvent<HTMLSelectElement>) => setPeriod(e.target.value)}
                 className="bg-slate-800 text-white p-2 rounded-md border-0"
                 >
                 <option value={15}>15 min</option>
