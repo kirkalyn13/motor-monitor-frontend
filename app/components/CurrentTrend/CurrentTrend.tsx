@@ -4,6 +4,7 @@ import { Metrics } from '@/app/types/metrics'
 import { getValueDeltaSign } from '@/app/utils/helpers'
 import { getCurrentTrend } from '@/app/services/metricService'
 import { DEFAULT_SERIES, DEFAULT_TIMESTAMPS, METRICS_GRANULARITY } from '@/app/utils/constants'
+import { useSearchParams } from 'next/navigation'
 
 interface CurrentTrendProps {
   unitID: string
@@ -14,11 +15,13 @@ const CurrentTrend = ({unitID, threshold = 0}: CurrentTrendProps) => {
   const [refreshTrigger, setRefreshTrigger] = useState(false)
   const [ series, setSeries ] = useState<Metrics[]>(DEFAULT_SERIES)
   const [ timestamps, setTimestamps ] = useState<string[]>(DEFAULT_TIMESTAMPS)
-
+  const searchParams = useSearchParams()
+  
   useEffect(() => {
       const refresh = () => setRefreshTrigger(!refreshTrigger)
+      const period = searchParams.get("period") ?? "15"
       setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
-      getCurrentTrend(unitID)
+      getCurrentTrend(unitID, period)
         .then((res) => {
           setSeries(res.trend ?? DEFAULT_SERIES)
           setTimestamps(res.timestamps ?? DEFAULT_SERIES)
