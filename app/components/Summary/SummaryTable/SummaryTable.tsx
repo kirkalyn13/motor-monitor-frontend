@@ -4,6 +4,7 @@ import { getLatestMetrics } from "@/app/services/metricService";
 import { getStatusTextColor } from "@/app/utils/helpers";
 import { DEFAULT_LATEST_METRICS, METRICS_GRANULARITY } from "@/app/utils/constants";
 import { LatestMetricsSummary } from "@/app/types/metrics";
+import Divider from "../../Divider/Divider";
 
 interface SummaryTableProps {
   unitID: string;
@@ -27,12 +28,14 @@ const SummaryTable = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: Summ
       return (
         <tr>
           <td className="px-4 py-2">{label}</td>
-          <td className={`px-4 py-2 ${getStatusTextColor(data?.status, true)}`}>
+          <td className={`px-4 py-2 ${getStatusTextColor(data?.status, false)}`}>
           {data?.value} {unit}
           </td>
         </tr>
       )
   }
+
+  const renderTableDivider = () => <tr><td><Divider/></td><td><Divider/></td></tr>
 
   return (
     <table className="w-screen md:w-1/3">
@@ -44,12 +47,15 @@ const SummaryTable = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: Summ
       </thead>
       {summary !== null ?  
       <tbody>
+          {renderTableDivider()}
           {renderDataRow(summary?.line1Voltage, "Phase 1 Voltage", "V")}
           {renderDataRow(summary?.line2Voltage, "Phase 2 Voltage", "V")}
           {renderDataRow(summary?.line3Voltage, "Phase 3 Voltage", "V")}
+          {renderTableDivider()}
           {renderDataRow(summary?.line1Current, "Line 1 Current", "A")}
           {renderDataRow(summary?.line2Current, "Line 2 Current", "A")}
           {renderDataRow(summary?.line3Current, "Line 3 Current", "A")}
+          {renderTableDivider()}
           {renderDataRow(summary?.temperature, "Temperature", "°C")}
       </tbody>
       : null}
