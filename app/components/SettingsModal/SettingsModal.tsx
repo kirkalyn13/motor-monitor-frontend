@@ -101,7 +101,7 @@ const SettingsModal = ({closeModal, userData }: SettingsModalProps) => {
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="number"
                         value={motor?.ratedVoltage ?? null}
-                        onChange={(e) => setMotor({...motor, ratedVoltage: parseInt(e.target.value)})}
+                        onChange={(e) => setMotor({...motor, ratedVoltage: parseFloat(e.target.value)})}
                         placeholder="Rated Voltage..." />
                 </div>
                 <div className="flex flex-col md:flex-row justify-between">
@@ -112,7 +112,7 @@ const SettingsModal = ({closeModal, userData }: SettingsModalProps) => {
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="number"
                         value={motor?.ratedCurrent ?? null}
-                        onChange={(e) => setMotor({...motor, ratedCurrent: parseInt(e.target.value)})}
+                        onChange={(e) => setMotor({...motor, ratedCurrent: parseFloat(e.target.value)})}
                         placeholder="Rated Current..." />
                 </div>
                 <div className="flex flex-col md:flex-row justify-between">
@@ -123,7 +123,7 @@ const SettingsModal = ({closeModal, userData }: SettingsModalProps) => {
                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         type="number"
                         value={motor?.maxTemperature ?? null}
-                        onChange={(e) => setMotor({...motor, maxTemperature: parseInt(e.target.value)})}
+                        onChange={(e) => setMotor({...motor, maxTemperature: parseFloat(e.target.value)})}
                         placeholder="Temperature in Celsius..." />
                 </div>
             <Divider />
