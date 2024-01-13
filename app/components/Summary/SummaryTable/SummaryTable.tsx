@@ -44,9 +44,9 @@ const SummaryTable = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: Summ
       </thead>
       {summary !== null ?  
       <tbody>
-          {renderDataRow(summary?.line1Voltage, "Line 1 Voltage", "V")}
-          {renderDataRow(summary?.line2Voltage, "Line 2 Voltage", "V")}
-          {renderDataRow(summary?.line3Voltage, "Line 3 Voltage", "V")}
+          {renderDataRow(summary?.line1Voltage, "Phase 1 Voltage", "V")}
+          {renderDataRow(summary?.line2Voltage, "Phase 2 Voltage", "V")}
+          {renderDataRow(summary?.line3Voltage, "Phase 3 Voltage", "V")}
           {renderDataRow(summary?.line1Current, "Line 1 Current", "A")}
           {renderDataRow(summary?.line2Current, "Line 2 Current", "A")}
           {renderDataRow(summary?.line3Current, "Line 3 Current", "A")}
