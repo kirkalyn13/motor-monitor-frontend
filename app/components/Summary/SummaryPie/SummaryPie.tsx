@@ -26,7 +26,7 @@ const SummaryPie = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: Summar
     },[maxTemperature, ratedCurrent, ratedVoltage, refreshTrigger, unitID]) 
 
     const options: ApexCharts.ApexOptions = {
-        colors: [chartStyles.colors.blue, chartStyles.colors.amber, chartStyles.colors.red],
+        colors: [chartStyles.colors.green, chartStyles.colors.amber, chartStyles.colors.red],
         plotOptions:{
           pie:{
             donut:{

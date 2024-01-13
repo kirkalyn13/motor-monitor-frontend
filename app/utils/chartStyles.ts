@@ -3,7 +3,7 @@ export const chartStyles = {
         white: "#FFFFFF",
         blue: "#2563EB",
         red: "#F44336",
-        green: "#4CAF50",
+        green: "#22C55E",
         gray: "#6B7280",
         amber: "#d97706",
         bg: "#1E293B"
