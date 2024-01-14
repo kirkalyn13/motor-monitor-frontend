@@ -26,7 +26,7 @@ const SummaryPie = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: Summar
     },[maxTemperature, ratedCurrent, ratedVoltage, refreshTrigger, unitID]) 
 
     const options: ApexCharts.ApexOptions = {
-        colors: [chartStyles.colors.blue, chartStyles.colors.amber, chartStyles.colors.red],
+        colors: [chartStyles.colors.green, chartStyles.colors.amber, chartStyles.colors.red],
         plotOptions:{
           pie:{
             donut:{
@@ -80,7 +80,7 @@ const SummaryPie = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: Summar
         <div className="w-screen md:w-1/3 text-center">
             <h3 className="w-full px-4 py-2">Metrics Summary</h3>
             <Chart 
-                className="flex justify-center align-center z-1"
+                className="flex justify-center align-center z-1 my-8"
                 options={options} 
                 series={summary?.summary ?? DEFAULT_SUMMARY_SERIES.summary} 
                 type="donut" 
