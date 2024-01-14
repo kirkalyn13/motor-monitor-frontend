@@ -20,7 +20,7 @@ interface AlarmsProps {
 const CSV_HEADERS = {
   alarm: "alarm",
   status: "severity",
-  timestamp: "timestamp"
+  timestamp: "day,timestamp"
 }
 
 const Alarms = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: AlarmsProps) => {
