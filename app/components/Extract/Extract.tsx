@@ -19,7 +19,7 @@ const CSV_HEADERS = {
   line3_current: "line3_current",
   line3_voltage: "line3_voltage",
   temperature: "temperature",
-  timestamp: "timestamp"
+  timestamp: "day,timestamp"
 }
 
 const Extract: React.FC<ExtractProps> = ({ unitID }) => {
