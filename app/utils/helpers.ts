@@ -22,6 +22,8 @@ export const getCurrentYear = (): number => {
 
 export const getStatusTextColor = (status: string, isBlink: boolean): string => {
     switch (status) {
+      case "null":
+        return "font-bold text-slate-500"
       case "normal":
         return "font-bold text-green-500"
       case "warning":
