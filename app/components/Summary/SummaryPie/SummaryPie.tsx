@@ -2,9 +2,10 @@
 import { useState, useEffect } from "react"
 import { MetricsSummarySeries } from '@/app/types/metrics';
 import { chartStyles } from '@/app/utils/chartStyles'
-import { METRICS_GRANULARITY, DEFAULT_SUMMARY_SERIES } from '@/app/utils/constants';
+import { DEFAULT_SUMMARY_SERIES } from '@/app/utils/constants';
 import dynamic from 'next/dynamic'
 import { getMetricsSummary } from "@/app/services/metricService";
+import useMinuteListener from "@/app/hooks/useMinuteListener";
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 interface SummaryPieProps {
@@ -15,15 +16,13 @@ interface SummaryPieProps {
 }
 
 const SummaryPie = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: SummaryPieProps) => {
-    const [refreshTrigger, setRefreshTrigger] = useState(false)
     const [ summary, setSummary ] = useState<MetricsSummarySeries>(DEFAULT_SUMMARY_SERIES)
+    const { currentMinute } = useMinuteListener()
 
     useEffect(() => {
-        const refresh = () => setRefreshTrigger(!refreshTrigger)
-        setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
         getMetricsSummary(unitID, ratedVoltage, ratedCurrent, maxTemperature)
           .then((res) => setSummary(res))
-    },[maxTemperature, ratedCurrent, ratedVoltage, refreshTrigger, unitID]) 
+    },[currentMinute, maxTemperature, ratedCurrent, ratedVoltage, unitID]) 
 
     const options: ApexCharts.ApexOptions = {
         colors: [chartStyles.colors.green, chartStyles.colors.amber, chartStyles.colors.red],

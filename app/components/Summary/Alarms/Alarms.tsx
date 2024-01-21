@@ -3,12 +3,12 @@ import { useState, useEffect } from 'react'
 import { Alarm } from '@/app/types/user'
 import { getStatusTextColor } from '@/app/utils/helpers'
 import { getAlarms } from '@/app/services/metricService'
-import { METRICS_GRANULARITY } from '@/app/utils/constants'
 import { BiDownload } from 'react-icons/bi'
 import { downloadAlarmsHistory } from '@/app/services/metricService'
 import { useSearchParams } from 'next/navigation'
 import { jsonToCsvWriter } from '@/app/utils/writer'
 import { getCurrentTimestampString } from '@/app/utils/helpers'
+import useMinuteListener from '@/app/hooks/useMinuteListener'
 
 interface AlarmsProps {
   unitID: string;
@@ -24,10 +24,10 @@ const CSV_HEADERS = {
 }
 
 const Alarms = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: AlarmsProps) => {
-  const [refreshTrigger, setRefreshTrigger] = useState(false)
   const [ alarms, setAlarms ] = useState<Alarm[]>([])
   const searchParams = useSearchParams()
   const period = searchParams.get("period") ?? "15"
+  const { currentMinute } = useMinuteListener()
 
   const extractData = async (): Promise<void> => {
     downloadAlarmsHistory(unitID, ratedVoltage, ratedCurrent, maxTemperature, period)
@@ -41,11 +41,9 @@ const Alarms = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: AlarmsProp
   }
 
     useEffect(() => {
-        const refresh = () => setRefreshTrigger(!refreshTrigger)
-        setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
         getAlarms(unitID, ratedVoltage, ratedCurrent, maxTemperature)
           .then((res) => setAlarms(res))
-    },[maxTemperature, ratedCurrent, ratedVoltage, refreshTrigger, unitID])
+    },[currentMinute, maxTemperature, ratedCurrent, ratedVoltage, unitID])
 
   return (
     <div className="w-screen md:w-1/3">
