@@ -1,8 +1,5 @@
 import { Metrics, MetricsSummarySeries } from '@/app/types/metrics'
 
-// Duration of metrics fetching
-export const METRICS_GRANULARITY = 60000 
-
 // Default placeholder values:
 export const DEFAULT_METRIC_SUMMARY = {
     status: "normal",
