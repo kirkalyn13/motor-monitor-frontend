@@ -19,6 +19,24 @@ To view sensor readings and analysis, visit the [web app](https://motor-monitor-
 2. Run `npm install`
 3. Run `npm run dev`
 
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env.local file
+
+`NEXT_PUBLIC_FIREBASE_API_KEY`
+
+`NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+
+`NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+
+`NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`
+
+`NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`
+
+`NEXT_PUBLIC_FIREBASE_APP_ID`
+
+`NEXT_PUBLIC_API_URL`
+
 
 ## Deployment
 Merging to main automatically deploys to [Vercel](https://vercel.com/).
