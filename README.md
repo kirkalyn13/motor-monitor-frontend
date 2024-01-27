@@ -6,7 +6,7 @@ Frontend for the Induction Motor Monitoring System.
 To view sensor readings and analysis, visit the [web app](https://motor-monitor-frontend.vercel.app/).
 
 ## Tech Stack
-- **Next JS** - Overkill tech for a client heavy app
+- **Next JS** - Frontend Framework; Overkill since the app is client heavy
 - **Apexcharts** - For charts
 - **Tailwind CSS** - For styles
 - **Firebase** - For user auth
