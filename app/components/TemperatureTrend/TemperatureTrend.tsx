@@ -34,7 +34,7 @@ const TemperatureTrend = ({unitID, threshold = 0}: TemperatureTrendProps) => {
         <div className="flex flex-row justify-center my-4 space-x-16">
           <div className="flex flex-col">
             <span>Overall</span>
-            <span>{getValueDeltaSign(series[0].data[10], series[0].data[11])} {series[0].data[11]}</span>
+            <span>{getValueDeltaSign(series[0].data[10], series[0].data[11])} {series[0].data[parseInt(period) + 1]}</span>
           </div>
         </div>
         <Trend 
