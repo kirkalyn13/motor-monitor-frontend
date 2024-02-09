@@ -3,8 +3,9 @@ import Trend from '../Trend/Trend'
 import { Metrics } from '@/app/types/metrics'
 import { getValueDeltaSign } from '@/app/utils/helpers'
 import { getVoltageTrend } from '@/app/services/metricService'
-import { DEFAULT_SERIES, DEFAULT_TIMESTAMPS, METRICS_GRANULARITY } from '@/app/utils/constants'
+import { DEFAULT_SERIES, DEFAULT_TIMESTAMPS } from '@/app/utils/constants'
 import { useSearchParams } from 'next/navigation'
+import useMinuteListener from '@/app/hooks/useMinuteListener'
 
 interface VoltageTrendProps {
   unitID: string
@@ -12,21 +13,19 @@ interface VoltageTrendProps {
 }
 
 const VoltageTrend = ({unitID, threshold = 0}: VoltageTrendProps) => {
-  const [refreshTrigger, setRefreshTrigger] = useState(false)
   const [ series, setSeries ] = useState<Metrics[]>(DEFAULT_SERIES)
   const [ timestamps, setTimestamps ] = useState<string[]>(DEFAULT_TIMESTAMPS)
   const searchParams = useSearchParams()
   const period = searchParams.get("period") ?? "15"
+  const { currentMinute } = useMinuteListener()
 
   useEffect(() => {
-      const refresh = () => setRefreshTrigger(!refreshTrigger)
-      setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
       getVoltageTrend(unitID, period)
         .then((res) => {
           setSeries(res.trend ?? DEFAULT_SERIES)
           setTimestamps(res.timestamps ?? DEFAULT_SERIES)
         })
-  },[period, refreshTrigger, unitID])
+  },[currentMinute, period, unitID])
 
   return (
     <section id="voltage" className="h-screen my-4 flex flex-col justify-center align-center">

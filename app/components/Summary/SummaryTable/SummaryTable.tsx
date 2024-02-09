@@ -2,9 +2,10 @@
 import { useState, useEffect } from "react"
 import { getLatestMetrics } from "@/app/services/metricService";
 import { getStatusTextColor } from "@/app/utils/helpers";
-import { DEFAULT_LATEST_METRICS, METRICS_GRANULARITY } from "@/app/utils/constants";
+import { DEFAULT_LATEST_METRICS } from "@/app/utils/constants";
 import { LatestMetricsSummary } from "@/app/types/metrics";
 import Divider from "../../Divider/Divider";
+import useMinuteListener from "@/app/hooks/useMinuteListener";
 
 interface SummaryTableProps {
   unitID: string;
@@ -14,15 +15,13 @@ interface SummaryTableProps {
 }
 
 const SummaryTable = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: SummaryTableProps) => {
-  const [refreshTrigger, setRefreshTrigger] = useState(false)
   const [ summary, setSummary ] = useState<LatestMetricsSummary>(DEFAULT_LATEST_METRICS)
+  const { currentMinute } = useMinuteListener()
 
   useEffect(() => {
-      const refresh = () => setRefreshTrigger(!refreshTrigger)
-      setTimeout(()=>{ refresh() }, METRICS_GRANULARITY)
       getLatestMetrics(unitID, ratedVoltage, ratedCurrent, maxTemperature)
         .then((res) => setSummary(res))
-  },[maxTemperature, ratedCurrent, ratedVoltage, refreshTrigger, unitID])
+  },[currentMinute, maxTemperature, ratedCurrent, ratedVoltage, unitID])
 
   const renderDataRow = (data: any, label: string, unit: string) => {
       return (
