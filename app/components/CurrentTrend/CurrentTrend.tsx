@@ -51,6 +51,7 @@ const CurrentTrend = ({unitID, threshold = 0}: CurrentTrendProps) => {
           yLabel='CURRENT (A)'
           thresholds={[
             { label: "critical", value: threshold*4 },
+            { label: "critical", value: threshold*1.5 },
             { label: "critical", value: threshold*1.25 },
           ]}
           />
