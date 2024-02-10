@@ -14,6 +14,17 @@ interface TrendProps {
 
 const getThresholdStyle = (label: string): string => label === "warning" ? chartStyles.colors.amber : chartStyles.colors.red
 const getThresholdLabel = (label: string): string => label === "warning" ? "Warning" : "Critical"
+const trimSeries = (rawSeries: Metrics[]): Metrics[] => rawSeries.map((metric: Metrics) => {
+  metric.data.shift()
+  return { 
+    data: metric.data, 
+    name: metric.name 
+  }
+})
+const trimTimestamps = (timestamps: string[]): string[] => {
+  timestamps.shift()
+  return timestamps
+}
 
 const Trend = ({series, unit, thresholds, xAxis, yLabel}: TrendProps) => {
     const options: ApexCharts.ApexOptions = {
@@ -65,7 +76,7 @@ const Trend = ({series, unit, thresholds, xAxis, yLabel}: TrendProps) => {
             }
           },
           xaxis: {
-            categories: xAxis,
+            categories: trimTimestamps(xAxis),
             tickAmount: 6,
             labels: {
               hideOverlappingLabels: true,
@@ -89,13 +100,13 @@ const Trend = ({series, unit, thresholds, xAxis, yLabel}: TrendProps) => {
   return (
     <div className="text-black mx-2 md:mx-32">
         <Chart 
-                className="flex justify-center align-center z-0"
-                options={options} 
-                series={series} 
-                type="line" 
-                height="500"
-                width="100%"
-                 />
+          className="flex justify-center align-center z-0"
+          options={options} 
+          series={trimSeries(series)} 
+          type="line" 
+          height="500"
+          width="100%"
+            />
     </div>
   )
 }
