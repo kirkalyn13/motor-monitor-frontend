@@ -24,9 +24,15 @@ const CSV_HEADERS = {
   timestamp: "day,timestamp"
 }
 
+const SEVERITY = {
+  warning: "warning",
+  critical: "critical"
+}
+
 const Alarms = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: AlarmsProps) => {
     const [ alarms, setAlarms ] = useState<Alarm[]>([])
-    const [ showModal, setShowModal ] = useState(false)
+    const [ showCriticalModal, setShowCriticalModal ] = useState(false)
+    const [ showWarningModal, setShowWarningModal ] = useState(false)
     const searchParams = useSearchParams()
     const period = searchParams.get("period") ?? "15"
     const { currentMinute } = useMinuteListener()
@@ -42,25 +48,42 @@ const Alarms = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: AlarmsProp
         })
     }
 
-    const showAlert = (): void => {
-      if (alarms.some((alarm: Alarm) => alarm.status !== "null")) setShowModal(true)
+    const showAlerts = (): void => {
+      if (alarms.some((alarm: Alarm) => alarm.status === SEVERITY.critical)) setShowCriticalModal(true)
+      if (alarms.some((alarm: Alarm) => alarm.status === SEVERITY.warning)) setShowWarningModal(true)
     }
 
-    const closeAlert = (): void => {
-      setShowModal(true)
+    const closeCriticalAlert = (): void => {
+      setShowCriticalModal(true)
     }
+
+    const closeWarningAlert = (): void => {
+      setShowWarningModal(true)
+    }
+
+    const getAlarmsBySeverity = (severity: string): string[] => alarms
+      .filter((alarm: Alarm) => alarm.status === severity)
+      .map((alarm: Alarm) => alarm.alarm)
 
     useEffect(() => {
         getAlarms(unitID, ratedVoltage, ratedCurrent, maxTemperature)
           .then((res) => setAlarms(res))
-          .then(() => showAlert())
+          .then(() => showAlerts())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[currentMinute, maxTemperature, ratedCurrent, ratedVoltage, unitID])
 
   return (
     <>
-      { !showModal && <Alert 
-        message="Test Alert" 
-        closeModal={() => closeAlert()}/>
+      { 
+        !showWarningModal && <Alert 
+        messages={getAlarmsBySeverity(SEVERITY.warning)}
+        severity="warning"
+        closeModal={() => closeWarningAlert()}/>
+      }
+      { !showCriticalModal && <Alert 
+        messages={getAlarmsBySeverity(SEVERITY.critical)}
+        severity="critical"
+        closeModal={() => closeCriticalAlert()}/>
       }
       <div className="w-screen md:w-1/3">
         <div className="w-full flex justify-center align-center">

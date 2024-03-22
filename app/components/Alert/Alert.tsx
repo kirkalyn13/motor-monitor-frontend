@@ -3,12 +3,12 @@ import Button from "../Button/Button"
 import { FiAlertCircle } from "react-icons/fi"
 
 interface AlertProps {
-    message: string
+    messages: string[]
     closeModal: Function
     severity: "warning" | "critical"
 }
 
-const Alert = ({ message, closeModal, severity = "warning" }:  AlertProps) => {
+const Alert = ({ messages, closeModal, severity = "warning" }:  AlertProps) => {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
           <div className={`w-screen md:w-1/4 h-auto p-6 
@@ -20,7 +20,7 @@ const Alert = ({ message, closeModal, severity = "warning" }:  AlertProps) => {
                 </div>
                 <BiX className="text-4xl" onClick={() => closeModal()}/>
             </div>
-            <p className="m-4 text-start">{message}</p>
+            <p className="m-4 text-start">{messages}</p>
             <Button 
                 text="Close" 
                 color={severity === "warning" ? "bg-amber-700" : "bg-red-700"}
