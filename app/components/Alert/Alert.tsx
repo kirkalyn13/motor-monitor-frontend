@@ -21,7 +21,7 @@ const Alert = ({ alarms, closeModal, severity = "warning" }:  AlertProps) => {
                 <BiX className="text-4xl" onClick={() => closeModal()}/>
             </div>
             <ul className="mx-4 my-8 space-y-1 text-start text-white">
-                {alarms.map((alarm: string) => <li>{alarm}</li>)}
+                {alarms.map((alarm: string) => <li key={alarm}>{alarm}</li>)}
             </ul>
             <Button 
                 text="Close" 
