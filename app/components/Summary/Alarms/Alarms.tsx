@@ -54,11 +54,11 @@ const Alarms = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: AlarmsProp
     }
 
     const closeCriticalAlert = (): void => {
-      setShowCriticalModal(true)
+      setShowCriticalModal(false)
     }
 
     const closeWarningAlert = (): void => {
-      setShowWarningModal(true)
+      setShowWarningModal(false)
     }
 
     const getAlarmsBySeverity = (severity: string): string[] => alarms
@@ -68,20 +68,23 @@ const Alarms = ({unitID, ratedVoltage, ratedCurrent, maxTemperature}: AlarmsProp
     useEffect(() => {
         getAlarms(unitID, ratedVoltage, ratedCurrent, maxTemperature)
           .then((res) => setAlarms(res))
-          .then(() => showAlerts())
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[currentMinute, maxTemperature, ratedCurrent, ratedVoltage, unitID])
+
+    useEffect(() => {
+      showAlerts()
+    },[alarms])
 
   return (
     <>
       { 
-        !showWarningModal && <Alert 
-        messages={getAlarmsBySeverity(SEVERITY.warning)}
+        showWarningModal && <Alert 
+        alarms={getAlarmsBySeverity(SEVERITY.warning)}
         severity="warning"
         closeModal={() => closeWarningAlert()}/>
       }
-      { !showCriticalModal && <Alert 
-        messages={getAlarmsBySeverity(SEVERITY.critical)}
+      { showCriticalModal && <Alert 
+        alarms={getAlarmsBySeverity(SEVERITY.critical)}
         severity="critical"
         closeModal={() => closeCriticalAlert()}/>
       }
